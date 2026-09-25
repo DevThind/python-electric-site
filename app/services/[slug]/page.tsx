@@ -1,25 +1,14 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import { ClosingCta } from '@/components/ui';
-import { quoteHref, serviceBySlug, services } from '@/lib/content';
+import { formerServiceDestinations, quoteHref, serviceBySlug, services } from '@/lib/content';
 import { pageMetadata } from '@/lib/metadata';
 
 export function generateStaticParams() {
   return services.map(service => ({ slug: service.slug }));
 }
-
-const relatedBySlug: Record<string, string[]> = {
-  'residential-electrical': ['lighting', 'panels-circuits-upgrades', 'repairs-maintenance'],
-  'commercial-electrical': ['construction-rewiring', 'repairs-maintenance', 'lighting'],
-  'construction-rewiring': ['residential-electrical', 'commercial-electrical', 'panels-circuits-upgrades'],
-  'panels-circuits-upgrades': ['ev-chargers', 'residential-electrical', 'construction-rewiring'],
-  lighting: ['residential-electrical', 'commercial-electrical', 'construction-rewiring'],
-  'repairs-maintenance': ['residential-electrical', 'commercial-electrical', 'panels-circuits-upgrades'],
-  'ev-chargers': ['panels-circuits-upgrades', 'residential-electrical', 'commercial-electrical'],
-  'electrical-restoration': ['repairs-maintenance', 'residential-electrical', 'commercial-electrical'],
-};
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -36,8 +25,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const service = serviceBySlug(slug);
+  if (formerServiceDestinations[slug]) permanentRedirect(formerServiceDestinations[slug]);
   if (!service) notFound();
-  const related = (relatedBySlug[slug] || []).map(relatedSlug => serviceBySlug(relatedSlug)!);
+  const related = services.filter(item => item.slug !== slug);
 
   return <>
     <section className={'detail-hero ' + (service.image ? 'detail-hero-image' : '')}>

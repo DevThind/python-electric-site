@@ -6,7 +6,7 @@ import { pageMetadata } from '@/lib/metadata';
 
 export const metadata: Metadata = pageMetadata(
   'Electrical Services in Vancouver, BC',
-  'Explore residential, commercial, construction, upgrades, lighting, repairs, EV charging, and electrical restoration with Python Electric.',
+  'Explore residential electrical, commercial electrical, EV charger installation, and electrical restoration with Python Electric.',
   '/services',
 );
 
@@ -18,7 +18,7 @@ export default function ServicesPage() {
     </section>
     <section className="services-page-section shell">
       <div className="services-page-grid">{services.map((service, index) => <Link className="service-card" href={'/services/' + service.slug} key={service.slug}>
-        <span className="service-card-top"><span>{String(index + 1).padStart(2, '0')} / 08</span><span aria-hidden="true">↗</span></span>
+        <span className="service-card-top"><span>{String(index + 1).padStart(2, '0')} / 04</span><span aria-hidden="true">↗</span></span>
         <div><h2>{service.title}</h2><p>{service.short}</p></div>
         <span className="service-card-bottom">Explore service <span aria-hidden="true">↗</span></span>
       </Link>)}</div>
