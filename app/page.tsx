@@ -100,7 +100,7 @@ export default function Home() {
               src={serviceImages[service.slug].src}
               alt={serviceImages[service.slug].alt}
               fill
-              sizes="(max-width: 760px) calc(100vw - 36px), (max-width: 1100px) 45vw, 22vw"
+              sizes="(max-width: 600px) calc(100vw - 36px), (max-width: 1100px) 42vw, 21vw"
               style={{ objectPosition: serviceImages[service.slug].position }}
             />
           </div>
