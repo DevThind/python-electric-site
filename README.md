@@ -21,7 +21,7 @@ npm run build
 
 - `lib/content.ts`: confirmed business identity, service taxonomy and proposed copy, image descriptions, captions, and quote links.
 - `app/globals.css`: base component and layout styles. `app/editorial.css`: earlier shared styling. `app/electrical.css`: current trade-focused palette, service layout, and responsive visual direction.
-- `public/images/`: web JPEG versions of all supplied work photos, plus four illustrative `service-*.webp` images used on the home-page cards. The service images are not presented as completed projects. Use `scripts/convert-heic.ps1` when the original HEIC files are available. The script requires the Windows HEIC image decoder.
+- `public/images/`: web JPEG versions of all supplied work photos, plus eight illustrative `service-*.webp` images used on the home-page cards. The service images are not presented as completed projects. Use `scripts/convert-heic.ps1` when the original HEIC files are available. The script requires the Windows HEIC image decoder.
 - `public/videos/python-electric-hero.mp4`: desktop hero video, 12.4 seconds and about 2.2 MB. The opening exterior shot is two seconds shorter; the original video is backed up at `notes/python-electric-hero-original.mp4`. Smaller screens, reduced-motion preferences, and data-saving connections use the hero poster instead.
 - `notes/asset-map.md`: every original filename, visible content, dimensions, crop guidance, and website placement.
 

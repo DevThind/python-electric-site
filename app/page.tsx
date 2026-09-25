@@ -4,9 +4,11 @@ import { HeroVideo } from '@/components/hero-video';
 import { ArrowLink } from '@/components/ui';
 import { services } from '@/lib/content';
 
-const featuredServices = services.filter(service =>
-  ['residential-electrical', 'commercial-electrical', 'panels-circuits-upgrades', 'repairs-maintenance'].includes(service.slug)
-);
+const homeServiceOrder = [
+  'residential-electrical', 'commercial-electrical', 'panels-circuits-upgrades', 'repairs-maintenance',
+  'construction-rewiring', 'lighting', 'ev-chargers', 'electrical-restoration',
+];
+const homeServices = homeServiceOrder.flatMap(slug => services.filter(service => service.slug === slug));
 
 const serviceImages: Record<string, { src: string; alt: string; position: string }> = {
   'residential-electrical': {
@@ -29,6 +31,26 @@ const serviceImages: Record<string, { src: string; alt: string; position: string
     alt: 'Illustration of an electrician fitting a wall switch in a home',
     position: '60% center',
   },
+  'construction-rewiring': {
+    src: '/images/service-construction.webp',
+    alt: 'Illustration of an electrician working on wiring inside a renovation',
+    position: 'center 50%',
+  },
+  lighting: {
+    src: '/images/service-lighting.webp',
+    alt: 'Illustration of warm lighting in a modern kitchen and dining room',
+    position: 'center 48%',
+  },
+  'ev-chargers': {
+    src: '/images/service-ev-chargers.webp',
+    alt: 'Illustration of an electric car connected to a home charger',
+    position: 'center 50%',
+  },
+  'electrical-restoration': {
+    src: '/images/service-restoration.webp',
+    alt: 'Illustration of an electrician testing an outlet during an assessment',
+    position: '55% center',
+  },
 };
 
 const faqs = [
@@ -42,6 +64,10 @@ function ServiceIcon({ slug }: { slug: string }) {
   if (slug === 'residential-electrical') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="M5 22 24 7l19 15v19H5V22Z"/><path d="M19 41V27h10v14M17 20h14M24 16v8"/></svg>;
   if (slug === 'commercial-electrical') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="M8 41V10h32v31H8ZM4 41h40M16 17h5m6 0h5m-16 8h5m6 0h5m-16 8h5m6 0h5M22 41V33h4v8"/></svg>;
   if (slug === 'panels-circuits-upgrades') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><rect x="10" y="5" width="28" height="38" rx="2"/><path d="M17 13h14M17 20h6m8 0h-3M17 27h3m11 0h-6M17 34h14M23 18v4m3 3v4"/></svg>;
+  if (slug === 'construction-rewiring') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="M7 42V9h34v33M7 20h34M17 9v33m14-33v33M4 42h40"/><path d="M22 26h4v7h-4z"/></svg>;
+  if (slug === 'lighting') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="M17 31c-4-3-6-7-6-12a13 13 0 0 1 26 0c0 5-2 9-6 12M17 31h14v6H17zM19 41h10M24 10v9m-5-3 5 3 5-3"/></svg>;
+  if (slug === 'ev-chargers') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><rect x="8" y="6" width="20" height="36" rx="2"/><path d="M13 12h10v11H13zM18 28v8m10-22h4l4 5v15a5 5 0 0 0 10 0v-8h-6"/></svg>;
+  if (slug === 'electrical-restoration') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="m27 5-13 20h9l-2 18 14-22h-9zM8 11a20 20 0 0 1 11-7M40 37a20 20 0 0 1-11 7"/></svg>;
   return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="M7 39h34M24 5v9m-8-5 5 8m11-8-5 8M13 24h22v15H13V24ZM19 24v-5h10v5M19 31h10"/></svg>;
 }
 
@@ -68,7 +94,7 @@ export default function Home() {
         <p>Start with the type of work you need. We cover everyday electrical issues and larger installation projects across residential and commercial properties.</p>
       </div>
       <div className="reference-service-grid">
-        {featuredServices.map(service => <Link href={'/services/' + service.slug} className="service-showcase-card" key={service.slug}>
+        {homeServices.map(service => <Link href={'/services/' + service.slug} className="service-showcase-card" key={service.slug}>
           <div className="service-showcase-media">
             <Image
               src={serviceImages[service.slug].src}
