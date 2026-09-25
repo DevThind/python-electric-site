@@ -6,17 +6,14 @@ export function HeroVideo() {
   const [showVideo, setShowVideo] = useState(false);
 
   useEffect(() => {
-    const desktop = window.matchMedia('(min-width: 761px)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData;
 
-    const syncVideo = () => setShowVideo(desktop.matches && !reducedMotion.matches && !saveData);
+    const syncVideo = () => setShowVideo(!reducedMotion.matches && !saveData);
 
     syncVideo();
-    desktop.addEventListener('change', syncVideo);
     reducedMotion.addEventListener('change', syncVideo);
     return () => {
-      desktop.removeEventListener('change', syncVideo);
       reducedMotion.removeEventListener('change', syncVideo);
     };
   }, []);

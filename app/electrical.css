@@ -161,6 +161,7 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
   .reference-hero-content>p { max-width: 500px; font-size: 16px; }
   .reference-hero-actions { flex-direction: column; align-items: stretch; width: min(100%, 300px); }
   .reference-hero::before { background-position: center; transform: scale(1.01); transform-origin: center; }
+  .reference-hero-video { object-position: center; transform: scale(1.01); transform-origin: center; }
   .reference-services { padding-block: 82px; }
   .reference-services-intro h2 { font-size: clamp(43px, 9.5vw, 66px); }
   .reference-service { min-height: 255px; }
