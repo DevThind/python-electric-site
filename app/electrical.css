@@ -40,15 +40,15 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
 .reference-hero { min-height: min(820px, 100svh); }
 .reference-hero::before { content: ''; display: block; position: absolute; inset: 0; background: url('/images/python-electric-hero-poster.jpg') left center/cover no-repeat; transform: scale(1.16); transform-origin: left center; }
 .reference-hero-video { filter: saturate(.92) brightness(.9) contrast(1.04); transform: scale(1.16); transform-origin: left center; }
-.reference-hero-shade { background: linear-gradient(90deg, rgba(6,17,34,.72) 0%, rgba(6,17,34,.35) 50%, rgba(6,17,34,.17) 100%), linear-gradient(0deg,rgba(6,17,34,.43),transparent 42%); }
-.reference-hero-content { align-items: flex-start; justify-content: center; min-height: min(820px, 100svh); padding-top: 150px; padding-bottom: 126px; text-align: left; transform: none; }
+.reference-hero-shade { background: linear-gradient(180deg,rgba(6,17,34,.34),rgba(6,17,34,.42)), radial-gradient(ellipse at center,rgba(6,17,34,.55),rgba(6,17,34,.12) 75%); }
+.reference-hero-content { align-items: center; justify-content: center; min-height: min(820px, 100svh); padding-top: 150px; padding-bottom: 126px; text-align: center; transform: none; }
 .reference-hero-kicker { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 30px; color: #fff; font-family: var(--body); font-size: 12px; font-weight: 750; letter-spacing: .17em; text-transform: uppercase; }
 .signal-dot { display: inline-block; width: 9px; height: 9px; background: var(--amber); box-shadow: 0 0 0 5px rgba(64,172,208,.2); }
-.reference-hero h1 { max-width: 980px; font-family: var(--body); font-size: clamp(60px, 6.9vw, 105px); font-weight: 900; line-height: .94; letter-spacing: -.075em; text-align: left; text-transform: uppercase; text-wrap: balance; }
+.reference-hero h1 { max-width: 1120px; font-family: var(--body); font-size: clamp(60px, 6.9vw, 105px); font-weight: 900; line-height: .94; letter-spacing: -.075em; text-align: center; text-transform: uppercase; text-wrap: balance; }
 .reference-hero h1 .hero-title-lead { display: block; font-size: .8em; line-height: 1.08; letter-spacing: -.065em; }
 .reference-hero h1 em { display: block; color: var(--amber); font-family: inherit; font-size: .8em; font-weight: 900; line-height: 1.08; letter-spacing: inherit; }
 .reference-hero-content>p { max-width: 610px; margin-top: 28px; color: #edf3f3; font-size: 18px; line-height: 1.55; }
-.reference-hero-actions { justify-content: flex-start; gap: 12px; margin-top: 38px; }
+.reference-hero-actions { justify-content: center; gap: 12px; margin-top: 38px; }
 .reference-hero-actions .button { justify-content: space-between; min-width: 215px; border-radius: 0; }
 .reference-hero-actions .button-amber { background: var(--amber); color: var(--graphite); }
 .reference-hero-actions .button-amber:hover { background: #5ebbd9; color: var(--graphite); }
@@ -154,10 +154,10 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
   .service-showcase-body { padding: 19px 22px 17px; }
   .service-showcase-body h3 { font-size: clamp(21px, 4vw, 27px); }
   .reference-hero { min-height: 780px; }
-  .reference-hero-shade { background: linear-gradient(90deg,rgba(6,17,34,.69),rgba(6,17,34,.23)), linear-gradient(0deg,rgba(6,17,34,.48),transparent 45%); }
-  .reference-hero-content { align-items: flex-start; justify-content: center; min-height: 780px; padding-top: 120px; padding-bottom: 95px; text-align: left; }
+  .reference-hero-shade { background: linear-gradient(180deg,rgba(6,17,34,.36),rgba(6,17,34,.5)), radial-gradient(ellipse at center,rgba(6,17,34,.6),rgba(6,17,34,.12) 80%); }
+  .reference-hero-content { align-items: center; justify-content: center; min-height: 780px; padding-top: 120px; padding-bottom: 95px; text-align: center; }
   .reference-hero-kicker { font-size: 10px; }
-  .reference-hero h1 { max-width: 580px; font-size: clamp(47px, 10vw, 74px); text-align: left; }
+  .reference-hero h1 { max-width: 580px; font-size: clamp(47px, 10vw, 74px); text-align: center; }
   .reference-hero-content>p { max-width: 500px; font-size: 16px; }
   .reference-hero-actions { flex-direction: column; align-items: stretch; width: min(100%, 300px); }
   .reference-hero::before { background-position: center; transform: scale(1.01); transform-origin: center; }
