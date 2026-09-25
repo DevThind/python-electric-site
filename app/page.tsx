@@ -33,15 +33,6 @@ const faqs = [
   ['Can the form give me a firm quote?', 'The form starts the conversation. Existing conditions, equipment, access, and the work involved may need a closer assessment before a scope can be confirmed.'],
 ];
 
-function ServiceIcon({ slug }: { slug: string }) {
-  const common = { fill: 'none', stroke: 'currentColor', strokeWidth: 1.7, strokeLinecap: 'round' as const, strokeLinejoin: 'round' as const };
-  if (slug === 'residential-electrical') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="M5 22 24 7l19 15v19H5V22Z"/><path d="M19 41V27h10v14M17 20h14M24 16v8"/></svg>;
-  if (slug === 'commercial-electrical') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="M8 41V10h32v31H8ZM4 41h40M16 17h5m6 0h5m-16 8h5m6 0h5m-16 8h5m6 0h5M22 41V33h4v8"/></svg>;
-  if (slug === 'ev-chargers') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><rect x="8" y="6" width="20" height="36" rx="2"/><path d="M13 12h10v11H13zM18 28v8m10-22h4l4 5v15a5 5 0 0 0 10 0v-8h-6"/></svg>;
-  if (slug === 'electrical-restoration') return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="m27 5-13 20h9l-2 18 14-22h-9zM8 11a20 20 0 0 1 11-7M40 37a20 20 0 0 1-11 7"/></svg>;
-  return <svg viewBox="0 0 48 48" aria-hidden="true" {...common}><path d="M7 39h34M24 5v9m-8-5 5 8m11-8-5 8M13 24h22v15H13V24ZM19 24v-5h10v5M19 31h10"/></svg>;
-}
-
 export default function Home() {
   return <div className="reference-home electrical-home">
     <section className="reference-hero">
@@ -60,9 +51,8 @@ export default function Home() {
 
     <section className="reference-services" id="services"><div className="shell">
       <div className="reference-services-intro">
-        <span className="eyebrow">Electrical services</span>
-        <h2>From the panel<br />to the <em>final connection.</em></h2>
-        <p>Start with the type of work you need. We cover everyday electrical issues and larger installation projects across residential and commercial properties.</p>
+        <div><span className="eyebrow">Electrical services</span><h2>Work for the spaces<br /><em>you count on.</em></h2></div>
+        <p>From everyday repairs to new installations, EV charging, and restoration. Find the right place to start.</p>
       </div>
       <div className="reference-service-grid">
         {services.map(service => <Link href={'/services/' + service.slug} className="service-showcase-card" key={service.slug}>
@@ -71,18 +61,16 @@ export default function Home() {
               src={serviceImages[service.slug].src}
               alt={serviceImages[service.slug].alt}
               fill
-              sizes="(max-width: 600px) calc(100vw - 36px), (max-width: 760px) 40vw, (max-width: 1100px) 45vw, 22vw"
+              sizes="(max-width: 760px) calc(100vw - 36px), (max-width: 1100px) 45vw, 22vw"
               style={{ objectPosition: serviceImages[service.slug].position }}
             />
           </div>
           <div className="service-showcase-body">
-            <span className="service-showcase-icon" aria-hidden="true"><ServiceIcon slug={service.slug} /></span>
             <h3>{service.title}</h3>
             <span className="service-showcase-link">Explore service <b aria-hidden="true">↗</b></span>
           </div>
         </Link>)}
       </div>
-      <Link className="button reference-all-services" href="/services">See all electrical services <span aria-hidden="true">↗</span></Link>
     </div></section>
 
     <section className="trade-scope shell">
