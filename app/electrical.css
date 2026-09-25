@@ -74,16 +74,16 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
 .reference-all-services { display: inline-flex; min-width: 270px; margin-top: 32px; border-color: var(--amber); color: #fff; }
 .reference-all-services:hover { background: var(--amber); color: var(--graphite); }
 
-/* Two-column service cards give each image and title room to breathe. */
-.reference-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; border: 0; }
-.service-showcase-card { position: relative; display: grid; grid-template-columns: 44% minmax(0, 1fr); min-width: 0; min-height: 270px; overflow: hidden; border: 1px solid #405b70; background: #14283f; color: #fff; transition: transform .35s ease, border-color .35s ease, background .35s ease, box-shadow .35s ease; }
-.service-showcase-media { position: relative; display: block; overflow: hidden; min-height: 100%; background: #24394b; }
+/* Four image-led services share one row on wide screens. */
+.reference-service-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; border: 0; }
+.service-showcase-card { position: relative; display: grid; grid-template-rows: auto 1fr; min-width: 0; overflow: hidden; border: 1px solid #405b70; background: #14283f; color: #fff; transition: transform .35s ease, border-color .35s ease, background .35s ease, box-shadow .35s ease; }
+.service-showcase-media { position: relative; display: block; overflow: hidden; aspect-ratio: 1.35; background: #24394b; }
 .service-showcase-media img { object-fit: cover; transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .7s ease; }
-.service-showcase-body { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; padding: 27px 30px 24px; }
+.service-showcase-body { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; min-height: 220px; padding: 22px 24px 21px; }
 .service-showcase-icon { display: grid; place-items: center; width: 38px; height: 38px; color: var(--amber); transition: color .35s ease, transform .35s ease; }
 .service-showcase-icon svg { width: 33px; height: 33px; }
-.service-showcase-body h3 { margin: auto 0; padding-block: 17px; font-size: clamp(23px, 2.15vw, 30px); font-weight: 800; line-height: 1.12; letter-spacing: -.045em; }
-.service-showcase-link { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; padding-top: 15px; border-top: 1px solid #405b70; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; transition: border-color .35s ease; }
+.service-showcase-body h3 { margin: 20px 0; font-size: clamp(22px, 1.8vw, 27px); font-weight: 800; line-height: 1.12; letter-spacing: -.045em; }
+.service-showcase-link { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; margin-top: auto; padding-top: 15px; border-top: 1px solid #405b70; font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; transition: border-color .35s ease; }
 .service-showcase-link b { color: var(--amber); font-size: 24px; font-weight: 400; line-height: 1; transition: transform .35s ease, color .35s ease; }
 .service-showcase-card:is(:hover, :focus-visible) { z-index: 1; transform: translateY(-7px); border-color: var(--amber); background: #1b354f; box-shadow: 0 20px 38px rgba(2,10,20,.34); }
 .service-showcase-card:is(:hover, :focus-visible) .service-showcase-media img { transform: scale(1.09); filter: saturate(1.14) brightness(1.07); }
@@ -142,15 +142,15 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
 .footer-links a:hover { color: var(--amber); }
 
 @media (max-width: 1100px) {
-  .reference-service-grid { grid-template-columns: 1fr; }
-  .service-showcase-card { min-height: 245px; }
+  .reference-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 1000px) {
   .trade-scope { gap: 5%; }
 }
 @media (max-width: 760px) {
-  .reference-service-grid { gap: 18px; }
-  .service-showcase-card { grid-template-columns: 40% minmax(0, 1fr); min-height: 220px; }
+  .reference-service-grid { grid-template-columns: 1fr; }
+  .service-showcase-card { grid-template-columns: 40% minmax(0, 1fr); grid-template-rows: 1fr; min-height: 220px; }
+  .service-showcase-media { min-height: 220px; aspect-ratio: auto; }
   .service-showcase-body { padding: 19px 22px 17px; }
   .service-showcase-body h3 { font-size: clamp(21px, 4vw, 27px); }
   .reference-hero { min-height: 780px; }
@@ -170,7 +170,7 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
   .reference-faq h2 { font-size: clamp(42px, 9vw, 64px); }
 }
 @media (max-width: 600px) {
-  .service-showcase-card { grid-template-columns: 1fr; min-height: 0; }
+  .service-showcase-card { grid-template-columns: 1fr; grid-template-rows: auto 1fr; min-height: 0; }
   .service-showcase-media { min-height: 0; aspect-ratio: 1.75; }
   .service-showcase-body { min-height: 205px; padding: 20px 23px 18px; }
   .service-showcase-body h3 { font-size: 26px; }
