@@ -55,29 +55,28 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
 .reference-hero-actions .reference-ghost-button { border: 1px solid rgba(255,255,255,.8); background: rgba(9,22,30,.18); color: #fff; }
 .reference-hero-actions .reference-ghost-button:hover { background: #fff; color: var(--graphite); }
 
-.reference-services { padding-block: 108px 116px; background: linear-gradient(180deg,#101f33,#0b192a); color: #fff; }
-.reference-services-intro { display: grid; grid-template-columns: minmax(0,1.4fr) minmax(280px,.6fr); gap: 8%; align-items: end; max-width: none; margin-bottom: 48px; }
+.reference-services { padding: 92px 0 0; background: #0d1b2d; color: #fff; }
+.reference-services-intro { display: flex; align-items: flex-end; max-width: none; margin-bottom: 38px; }
+.reference-services-intro::after { content: ''; flex: 1; height: 1px; margin: 0 0 9px 64px; background: rgba(188,217,230,.3); }
 .reference-services-intro .eyebrow { color: var(--amber); }
-.reference-services-intro h2 { margin: 20px 0 0; font-size: clamp(44px, 4.4vw, 64px); font-weight: 780; line-height: 1.04; letter-spacing: -.065em; }
-.reference-services-intro h2 em { color: var(--amber); }
-.reference-services-intro>p { max-width: 360px; margin: 0 0 4px; color: #bbcad3; font-size: 16px; line-height: 1.65; }
+.reference-services-intro h2 { margin: 17px 0 0; font-size: clamp(43px, 4vw, 60px); font-weight: 760; line-height: 1; letter-spacing: -.062em; }
 
-/* The photography carries the service story, with the title kept legible over it. */
-.reference-service-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; border: 0; }
-.service-showcase-card { position: relative; display: block; min-width: 0; overflow: hidden; border: 1px solid rgba(190,216,229,.25); background: #14283f; color: #fff; isolation: isolate; transition: transform .35s ease, border-color .35s ease, box-shadow .35s ease; }
-.service-showcase-card::before { content: ''; position: absolute; z-index: 3; inset: 0 0 auto; height: 2px; background: var(--amber); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
-.service-showcase-card::after { content: ''; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(180deg,rgba(3,12,24,.08) 0%,rgba(3,12,24,.16) 37%,rgba(3,12,24,.78) 72%,rgba(3,12,24,.95) 100%); }
+/* A single photographic strip continues the visual language of the hero. */
+.reference-service-grid { display: flex; min-height: 570px; gap: 0; border: 0; }
+.service-showcase-card { position: relative; flex: 1 1 0; min-width: 0; min-height: 570px; overflow: hidden; border: 0; border-left: 1px solid rgba(240,250,255,.32); background: #14283f; color: #fff; isolation: isolate; transition: flex-grow .6s cubic-bezier(.2,.7,.2,1); }
+.service-showcase-card:first-child { border-left: 0; }
+.service-showcase-card::before { content: ''; position: absolute; z-index: 3; inset: auto 0 0; height: 3px; background: var(--amber); transform: scaleX(0); transform-origin: left; transition: transform .35s ease; }
+.service-showcase-card::after { content: ''; position: absolute; z-index: 1; inset: 0; pointer-events: none; background: linear-gradient(180deg,rgba(5,13,27,.2) 0%,rgba(5,13,27,.02) 38%,rgba(5,13,27,.35) 63%,rgba(5,13,27,.94) 100%); }
 .service-showcase-media { position: absolute; inset: 0; display: block; overflow: hidden; background: #24394b; }
-.service-showcase-media img { object-fit: cover; transition: transform .7s cubic-bezier(.2,.7,.2,1), filter .7s ease; }
-.service-showcase-body { position: relative; z-index: 2; display: flex; flex-direction: column; justify-content: flex-end; min-height: 470px; padding: 28px 25px 24px; }
-.service-showcase-body h3 { margin: 0 0 24px; font-size: clamp(25px, 1.95vw, 31px); font-weight: 800; line-height: 1.08; letter-spacing: -.045em; text-wrap: balance; }
-.service-showcase-link { display: flex; width: 100%; align-items: center; justify-content: space-between; gap: 12px; padding-top: 16px; border-top: 1px solid rgba(234,246,252,.55); font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; }
-.service-showcase-link b { color: var(--amber); font-size: 24px; font-weight: 400; line-height: 1; transition: transform .35s ease, color .35s ease; }
-.service-showcase-card:is(:hover, :focus-visible) { z-index: 1; transform: translateY(-6px); border-color: var(--amber); box-shadow: 0 22px 40px rgba(2,10,20,.34); }
+.service-showcase-media img { object-fit: cover; filter: saturate(.83) brightness(.88); transition: transform .75s cubic-bezier(.2,.7,.2,1), filter .75s ease; }
+.service-showcase-body { position: absolute; z-index: 2; inset: auto 0 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; padding: 30px 27px 37px; }
+.service-showcase-body h3 { max-width: 260px; margin: 0; font-size: clamp(26px, 2.1vw, 34px); font-weight: 800; line-height: 1.06; letter-spacing: -.045em; text-wrap: balance; }
+.service-showcase-link { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border: 1px solid rgba(241,250,255,.72); color: #fff; font-size: 25px; font-weight: 400; line-height: 1; transition: transform .35s ease, background .35s ease, border-color .35s ease, color .35s ease; }
+.service-showcase-card:is(:hover, :focus-visible) { flex-grow: 1.35; }
 .service-showcase-card:is(:hover, :focus-visible)::before { transform: scaleX(1); }
-.service-showcase-card:is(:hover, :focus-visible) .service-showcase-media img { transform: scale(1.065); filter: saturate(1.08) brightness(1.06); }
-.service-showcase-card:is(:hover, :focus-visible) .service-showcase-link b { transform: translate(3px, -3px); color: #fff; }
-.service-showcase-card:focus-visible { outline: 3px solid #a8e8ff; outline-offset: 4px; }
+.service-showcase-card:is(:hover, :focus-visible) .service-showcase-media img { transform: scale(1.055); filter: saturate(1) brightness(1.02); }
+.service-showcase-card:is(:hover, :focus-visible) .service-showcase-link { transform: translate(3px,-3px); border-color: var(--amber); background: var(--amber); color: var(--graphite); }
+.service-showcase-card:focus-visible { outline: 3px solid #a8e8ff; outline-offset: -4px; }
 
 /* A simple intake graphic replaces the oversized residential interior photo. */
 .trade-scope { display: grid; grid-template-columns: .95fr 1fr; gap: 9%; align-items: center; padding-block: 128px; }
@@ -129,16 +128,17 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
 .footer-links a:hover { color: var(--amber); }
 
 @media (max-width: 1100px) {
-  .reference-service-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .service-showcase-body { min-height: 430px; }
+  .reference-service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 0; }
+  .service-showcase-card { min-height: 450px; border-top: 1px solid rgba(240,250,255,.32); }
+  .service-showcase-card:nth-child(odd) { border-left: 0; }
 }
 @media (max-width: 1000px) {
   .trade-scope { gap: 5%; }
 }
 @media (max-width: 760px) {
   .reference-service-grid { grid-template-columns: 1fr; }
-  .service-showcase-body { min-height: 350px; }
-  .service-showcase-body h3 { font-size: clamp(26px, 5vw, 32px); }
+  .service-showcase-card { min-height: 350px; border-left: 0; }
+  .service-showcase-body h3 { font-size: clamp(28px, 5vw, 34px); }
   .reference-hero { min-height: 780px; }
   .reference-hero-shade { background: linear-gradient(180deg,rgba(6,17,34,.36),rgba(6,17,34,.5)), radial-gradient(ellipse at center,rgba(6,17,34,.6),rgba(6,17,34,.12) 80%); }
   .reference-hero-content { align-items: center; justify-content: center; min-height: 780px; padding-top: 120px; padding-bottom: 95px; text-align: center; }
@@ -148,18 +148,19 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
   .reference-hero-actions { flex-direction: column; align-items: stretch; width: min(100%, 300px); }
   .reference-hero::before { background-position: center; transform: scale(1.01); transform-origin: center; }
   .reference-hero-video { object-position: center; transform: scale(1.01); transform-origin: center; }
-  .reference-services { padding-block: 82px; }
-  .reference-services-intro { display: block; margin-bottom: 38px; }
+  .reference-services { padding-top: 76px; }
+  .reference-services-intro { display: block; margin-bottom: 30px; }
+  .reference-services-intro::after { display: none; }
   .reference-services-intro h2 { font-size: clamp(42px, 9vw, 58px); }
-  .reference-services-intro>p { max-width: 540px; margin-top: 23px; }
   .trade-scope { grid-template-columns: 1fr; gap: 44px; padding-block: 85px; }
   .trade-scope-copy h2 { font-size: clamp(41px, 9vw, 60px); }
   .trade-scope-panel { min-height: 0; }
   .reference-faq h2 { font-size: clamp(42px, 9vw, 64px); }
 }
 @media (max-width: 600px) {
-  .service-showcase-body { min-height: 410px; padding: 23px; }
-  .service-showcase-body h3 { font-size: 28px; }
+  .service-showcase-card { min-height: 320px; }
+  .service-showcase-body { padding: 24px 21px 26px; }
+  .service-showcase-body h3 { font-size: 29px; }
 }
 @media (max-width: 480px) {
   .reference-hero { min-height: 710px; }

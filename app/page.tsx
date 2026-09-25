@@ -4,25 +4,21 @@ import { HeroVideo } from '@/components/hero-video';
 import { ArrowLink } from '@/components/ui';
 import { services } from '@/lib/content';
 
-const serviceImages: Record<string, { src: string; alt: string; position: string }> = {
+const serviceImages: Record<string, { src: string; position: string }> = {
   'residential-electrical': {
     src: '/images/service-residential.webp',
-    alt: 'Illustration of a modern home with warm exterior lighting at dusk',
     position: 'center 51%',
   },
   'commercial-electrical': {
     src: '/images/service-commercial.webp',
-    alt: 'Illustration of an electrician beneath linear lighting in a commercial workspace',
     position: 'center 48%',
   },
   'ev-chargers': {
     src: '/images/service-ev-chargers.webp',
-    alt: 'Illustration of an electric car connected to a home charger',
     position: 'center 50%',
   },
   'electrical-restoration': {
     src: '/images/service-restoration.webp',
-    alt: 'Illustration of an electrician testing an outlet during an assessment',
     position: '55% center',
   },
 };
@@ -49,29 +45,28 @@ export default function Home() {
       </div>
     </section>
 
-    <section className="reference-services" id="services"><div className="shell">
-      <div className="reference-services-intro">
-        <div><span className="eyebrow">Electrical services</span><h2>Work for the spaces<br /><em>you count on.</em></h2></div>
-        <p>From everyday repairs to new installations, EV charging, and restoration. Find the right place to start.</p>
+    <section className="reference-services" id="services">
+      <div className="reference-services-intro shell">
+        <div><span className="eyebrow">What we do</span><h2>Electrical services.</h2></div>
       </div>
       <div className="reference-service-grid">
         {services.map(service => <Link href={'/services/' + service.slug} className="service-showcase-card" key={service.slug}>
           <div className="service-showcase-media">
             <Image
               src={serviceImages[service.slug].src}
-              alt={serviceImages[service.slug].alt}
+              alt=""
               fill
-              sizes="(max-width: 760px) calc(100vw - 36px), (max-width: 1100px) 45vw, 22vw"
+              sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 25vw"
               style={{ objectPosition: serviceImages[service.slug].position }}
             />
           </div>
           <div className="service-showcase-body">
             <h3>{service.title}</h3>
-            <span className="service-showcase-link">Explore service <b aria-hidden="true">↗</b></span>
+            <span className="service-showcase-link" aria-hidden="true">↗</span>
           </div>
         </Link>)}
       </div>
-    </div></section>
+    </section>
 
     <section className="trade-scope shell">
       <div className="trade-scope-copy">
