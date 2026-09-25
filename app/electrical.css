@@ -121,6 +121,18 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
 .detail-hero { background: var(--paper-dark); }
 .detail-next { background: #dcecf4; }
 .detail-next .eyebrow { color: var(--bronze-ink); }
+.services-choice-note { max-width: 610px; margin: 24px 0 0 auto; color: var(--muted); font-size: 14px; line-height: 1.6; }
+.service-card-top span:first-child { font-size: 11px; font-weight: 750; letter-spacing: .11em; text-transform: uppercase; }
+.detail-examples > div { grid-template-columns: 50px minmax(0, 1fr); gap: 14px; padding-block: 27px; }
+.detail-examples h3 { margin: 0 0 9px; font-size: clamp(20px, 1.8vw, 25px); font-weight: 800; line-height: 1.18; letter-spacing: -.035em; }
+.detail-examples p { max-width: 680px; margin: 0; font-size: 15px; line-height: 1.65; }
+.detail-factors { margin-top: 76px; }
+.service-faq { display: grid; grid-template-columns: .7fr 1fr; gap: 9%; border-top: 1px solid var(--line); }
+.service-faq-intro h2 { margin: 19px 0 17px; font-size: clamp(42px, 4vw, 62px); line-height: 1.03; }
+.service-faq-intro p { max-width: 350px; color: var(--muted); font-size: 16px; }
+.service-faq .faq-list { width: 100%; margin: 0; }
+.service-faq .faq-list summary { align-items: center; font-size: 17px; line-height: 1.4; }
+.service-faq .faq-list details p { padding-right: 48px; line-height: 1.7; }
 .quote-form, .form-success { background: var(--paper-dark); }
 .field input, .field select, .field textarea { border-color: #a8c0cf; background: #fff; }
 .site-footer { background: var(--graphite); }
@@ -136,6 +148,9 @@ body:has(.reference-home) .site-header { background: linear-gradient(180deg, rgb
   .trade-scope { gap: 5%; }
 }
 @media (max-width: 760px) {
+  .service-faq { grid-template-columns: 1fr; gap: 28px; }
+  .service-faq-intro p { max-width: 540px; }
+  .services-choice-note { margin-left: 0; }
   .reference-service-grid { grid-template-columns: 1fr; }
   .service-showcase-card { min-height: 350px; border-left: 0; }
   .service-showcase-body h3 { font-size: clamp(28px, 5vw, 34px); }

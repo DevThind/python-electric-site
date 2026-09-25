@@ -11,48 +11,113 @@ export const site = {
 export type Service = {
   slug: string;
   title: string;
+  label: string;
   short: string;
   intro: string;
-  examples: string[];
+  focusTitle: string;
+  focusIntro: string;
+  areas: { title: string; description: string }[];
   factors: string[];
   guidance: string;
+  questions: { question: string; answer: string }[];
+  nextTitle: string;
+  nextText: string;
   image?: string;
   imageAlt?: string;
 };
 
 export const services: Service[] = [
   {
-    slug: 'residential-electrical', title: 'Residential electrical',
-    short: 'Home repairs, lighting, wiring, panel upgrades, and renovation electrical work.',
-    intro: 'From a single repair to the electrical work in a new build or renovation, start with what your home needs. Lighting, wiring, panels, circuits, and everyday installations can all be discussed here.',
-    examples: ['Repairs, troubleshooting, and maintenance', 'Interior and exterior lighting installations', 'Wiring for renovations and new construction', 'Panel, circuit, and capacity upgrades', 'New fixtures and other installations'],
-    factors: ['The existing wiring, panel, and electrical setup', 'Which rooms, fixtures, or circuits are changing', 'Plans, equipment, and other trades involved'],
-    guidance: 'Describe the property, the rooms involved, and what you would like to add, repair, or change. Include photos, fixture details, or renovation plans if you have them.',
+    slug: 'residential-electrical', title: 'Residential electrical', label: 'For your home',
+    short: 'Repairs, lighting, renovations, wiring, and new electrical demands at home.',
+    intro: 'A home can need anything from one troublesome switch to the electrical work behind a full renovation. Tell us what is happening now and what you want the space to do next.',
+    focusTitle: 'Electrical work that fits the way you live.',
+    focusIntro: 'Small fixes and larger plans often connect to the same underlying system. These are common starting points for a residential project.',
+    areas: [
+      { title: 'Repairs & troubleshooting', description: 'Outlets, switches, lights, or circuits behaving unexpectedly? Describe the symptoms, where they occur, and when you first noticed them.' },
+      { title: 'Lighting & fixtures', description: 'Plan lighting for everyday use or a new look, from kitchens and living spaces to entries, pathways, and exterior areas.' },
+      { title: 'Renovations & wiring', description: 'Bring electrical planning into a remodel or new build early, while room layouts, appliance locations, and finished surfaces are still being decided.' },
+      { title: 'Panels, circuits & new loads', description: 'Adding equipment or changing how a space is used may call for a review of existing circuits and available electrical capacity.' },
+    ],
+    factors: ['The age and condition of the existing installation', 'The rooms, appliances, and fixtures involved', 'Access to wiring and coordination with other renovation work'],
+    guidance: 'Tell us which rooms are involved, what needs attention, and whether the work is a repair or part of a larger project. Photos, plans, and fixture or appliance details are useful if you have them.',
+    questions: [
+      { question: 'Can I ask about a small electrical repair?', answer: 'Yes. A single problem is a useful place to start. Tell us what is happening, where it happens, and whether it is intermittent or ongoing.' },
+      { question: 'Do I need finished renovation plans first?', answer: 'No. A rough layout and a list of the lighting, outlets, or equipment you want can help start the conversation. More detail can follow as the project develops.' },
+      { question: 'Will new equipment require a panel upgrade?', answer: 'That depends on the existing electrical setup and the equipment being added. Share the model or power requirements if known so the right capacity questions can be reviewed.' },
+    ],
+    nextTitle: 'Tell us what is changing at home.',
+    nextText: 'A short description is enough to begin. Include the address or neighbourhood, the affected rooms, and any plans or photos you already have.',
     image: '/images/work-1007.jpg', imageAlt: 'Pendant lighting above a residential stairwell',
   },
   {
-    slug: 'commercial-electrical', title: 'Commercial electrical',
-    short: 'Business installations, wiring, lighting, repairs, and electrical upgrades.',
-    intro: 'A commercial space has its own layout, equipment, access needs, and operating context. Whether the work involves a new installation, rewiring, lighting, a panel upgrade, or a repair, share how the property is used and what needs to change.',
-    examples: ['Electrical installations and alterations', 'Wiring for construction and renovations', 'Interior and exterior lighting', 'Panel, circuit, and capacity upgrades', 'Troubleshooting, repairs, and maintenance'],
-    factors: ['How the space is currently used', 'Existing equipment, panels, and electrical layout', 'Access requirements, drawings, and project timing'],
-    guidance: 'Include the property type, its current use, the issue or planned installation, access requirements, and any drawings or schedule you have.',
+    slug: 'commercial-electrical', title: 'Commercial electrical', label: 'For your business',
+    short: 'Electrical work for workplaces, renovations, equipment, and upkeep.',
+    intro: 'The electrical needs of a business are shaped by the space, the equipment inside it, and the people who use it. Start with the work you need and the practical constraints of the property.',
+    focusTitle: 'Built around the space and its operations.',
+    focusIntro: 'From an existing workplace to a new fit-out, the clearest plan begins with how the space is used and what needs to change.',
+    areas: [
+      { title: 'New spaces & alterations', description: 'Discuss electrical work for a new layout, tenant improvement, or renovation alongside the plans and trades already involved.' },
+      { title: 'Lighting for workspaces', description: 'Consider task lighting, general lighting, and exterior areas in relation to the space, its hours, and how people move through it.' },
+      { title: 'Equipment & power needs', description: 'New equipment can change circuit and capacity requirements. Share equipment specifications and where the connections are needed.' },
+      { title: 'Repairs & ongoing upkeep', description: 'Describe recurring faults, damaged components, or changes needed in an occupied space so the affected areas can be understood.' },
+    ],
+    factors: ['Business use, occupancy, and operating hours', 'Existing panels, circuits, and equipment requirements', 'Access, drawings, other trades, and project schedule'],
+    guidance: 'Share the property type, current use, and the area or equipment involved. Drawings, equipment specifications, access details, and a target schedule can help frame the enquiry.',
+    questions: [
+      { question: 'Can work be discussed for an operating business?', answer: 'Yes. Include your business hours, site access rules, and any areas that need to stay in use so those constraints can be considered when discussing the work.' },
+      { question: 'What should I send for a tenant improvement?', answer: 'A floor plan, proposed equipment, lighting ideas, and your target schedule are useful. You can still reach out if the drawings are in progress.' },
+      { question: 'Can I combine several electrical changes in one enquiry?', answer: 'Yes. List each area or issue, then note which items are urgent and which are part of a later phase.' },
+    ],
+    nextTitle: 'Describe the space and the work ahead.',
+    nextText: 'Tell us how the property is used, what is changing, and any access or timing constraints. Plans and equipment details are welcome if available.',
+    image: '/images/service-commercial.webp', imageAlt: 'Commercial workspace with overhead lighting',
   },
   {
-    slug: 'ev-chargers', title: 'EV charger installation',
-    short: 'Charger installation, circuit planning, and capacity review for your property.',
-    intro: 'A charger installation depends on the equipment, parking location, and existing electrical capacity. Those details help establish what needs to be reviewed at the property.',
-    examples: ['Home and business charger installation enquiries', 'Charger location and cable route planning', 'Dedicated circuits and panel capacity questions', 'Electrical upgrades linked to charging equipment'],
-    factors: ['Vehicle and charger model', 'Parking location and cable route', 'Existing panel and available capacity'],
-    guidance: 'Share the charger model if selected, where the vehicle parks, and what you know about the electrical panel.',
+    slug: 'ev-chargers', title: 'EV charger installation', label: 'For your vehicle',
+    short: 'Plan a charging setup around your parking space and electrical supply.',
+    intro: 'A good charging setup starts with more than the charger itself. Parking location, the route back to the electrical panel, and the property’s available capacity all shape the installation.',
+    focusTitle: 'Plan the route from panel to parking.',
+    focusIntro: 'Whether charging is for a home or a business, a few site details make the first conversation far more useful.',
+    areas: [
+      { title: 'Charger location', description: 'Choose a practical position for the vehicle, charging cable, and day-to-day access, whether the space is indoors or outside.' },
+      { title: 'Wiring route', description: 'The distance and path from the electrical supply to the parking spot affect how the installation can be approached.' },
+      { title: 'Electrical capacity', description: 'The existing panel and other electrical loads need to be considered before the charging setup is confirmed.' },
+      { title: 'Equipment selection', description: 'If you have a charger in mind, its model and electrical requirements help define the scope. If you have not chosen one yet, start with your vehicle and parking setup.' },
+    ],
+    factors: ['The vehicle and charger model, if selected', 'Parking position and possible wiring route', 'Existing panel, service, and other electrical loads'],
+    guidance: 'Tell us where the vehicle parks, where the electrical panel is, and whether you have selected a charger. A photo of the parking area and panel can help start the discussion.',
+    questions: [
+      { question: 'Do I need to buy a charger before reaching out?', answer: 'No. If you already have a model in mind, include it. Otherwise, tell us about the vehicle, parking location, and the type of charging you are considering.' },
+      { question: 'Will my electrical panel need an upgrade?', answer: 'It is not possible to tell from the charger alone. Available capacity depends on the existing installation and other loads, so that question needs a property-specific review.' },
+      { question: 'What if the parking spot is far from the panel?', answer: 'The route still matters. Photos or a rough sketch of the panel and parking location can help identify the questions to address before installation.' },
+    ],
+    nextTitle: 'Start with your parking setup.',
+    nextText: 'Share your vehicle or charger details, a photo of the parking area, and anything you know about the panel. The remaining details can be worked through from there.',
+    image: '/images/service-ev-chargers.webp', imageAlt: 'Electric vehicle connected to a charger beside a home',
   },
   {
-    slug: 'electrical-restoration', title: 'Electrical restoration',
-    short: 'Electrical assessment, troubleshooting, and repair after property damage.',
-    intro: 'Damage to a property can affect more than the visible finishes. Describe what happened and the state of the site so the electrical questions can be considered alongside the wider work.',
-    examples: ['Electrical assessment after property damage', 'Troubleshooting affected circuits and fixtures', 'Repair or replacement planning', 'Coordination with a wider restoration project'],
-    factors: ['The type and extent of damage', 'Current site access and safety restrictions', 'Other restoration work being coordinated'],
-    guidance: 'Describe the damage, current access to the property, and who is coordinating the broader work.',
+    slug: 'electrical-restoration', title: 'Electrical restoration', label: 'After property damage',
+    short: 'Assess and plan electrical repairs after damage to a property.',
+    intro: 'After property damage, electrical questions may remain even when the visible cleanup has begun. Explain what happened, which areas were affected, and the current condition of the site.',
+    focusTitle: 'Understand what the damage may have affected.',
+    focusIntro: 'Restoration work starts with the affected systems and the condition of the property, then fits into the wider repair plan.',
+    areas: [
+      { title: 'Affected electrical areas', description: 'Identify the rooms, fixtures, outlets, circuits, or equipment that were exposed to damage or are no longer working as expected.' },
+      { title: 'Assessment & troubleshooting', description: 'The cause, extent of damage, and current site conditions help determine what needs a closer electrical assessment.' },
+      { title: 'Repair planning', description: 'Where components need attention, discuss the electrical work alongside wall access, rebuilding plans, and other repairs.' },
+      { title: 'Project coordination', description: 'Restoration often involves several people. Share who manages the property and which other trades or restoration teams are already involved.' },
+    ],
+    factors: ['What happened and which areas were affected', 'Whether the site is accessible and any restrictions in place', 'The status of cleanup, rebuilding, and other trades'],
+    guidance: 'Explain the type of damage, affected rooms, whether power is currently on, and who is coordinating the broader project. Photos are helpful only if the area is safe to access.',
+    questions: [
+      { question: 'What information helps with a restoration enquiry?', answer: 'The cause of the damage, affected areas, current power status, site access, and the contact for the wider restoration project are good starting points.' },
+      { question: 'Can electrical work be planned alongside rebuilding?', answer: 'Yes. Share what demolition or repairs are already planned so the electrical work can be discussed in the context of the full project.' },
+      { question: 'Should damaged electrical equipment be turned back on?', answer: 'If wiring or equipment has been affected by fire, flooding, or similar damage, leave it off until it has been assessed by a qualified electrical professional. Follow the direction of the relevant authorities for site access.' },
+    ],
+    nextTitle: 'Tell us what happened and what comes next.',
+    nextText: 'Describe the affected areas, current site access, and any restoration team already involved. The first conversation can begin before the full repair plan is settled.',
+    image: '/images/service-restoration.webp', imageAlt: 'Electrician testing an outlet in a home',
   },
 ];
 
