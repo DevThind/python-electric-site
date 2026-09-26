@@ -4,6 +4,12 @@ import { useEffect, useState } from 'react';
 
 export function HeroVideo() {
   const [showVideo, setShowVideo] = useState(false);
+  const [showInstallationFrame, setShowInstallationFrame] = useState(false);
+
+  const syncFrame = (video: HTMLVideoElement) => {
+    const time = video.currentTime;
+    setShowInstallationFrame(time >= 3.875 && time < 8.25);
+  };
 
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -22,7 +28,7 @@ export function HeroVideo() {
 
   return (
     <video
-      className="reference-hero-video"
+      className={`reference-hero-video${showInstallationFrame ? ' is-installation-shot' : ''}`}
       width={1280}
       height={720}
       poster="/images/python-electric-hero-poster.jpg"
@@ -31,6 +37,8 @@ export function HeroVideo() {
       loop
       playsInline
       preload="metadata"
+      onTimeUpdate={event => syncFrame(event.currentTarget)}
+      onSeeked={event => syncFrame(event.currentTarget)}
       aria-hidden="true"
       tabIndex={-1}
       disablePictureInPicture
