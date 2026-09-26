@@ -49,20 +49,22 @@ export default function Home() {
       <div className="reference-services-intro shell">
         <div><span className="eyebrow">What we do</span><h2>Electrical services.</h2></div>
       </div>
-      <div className="reference-service-grid">
-        {services.map(service => <Link href={'/services/' + service.slug} className="service-showcase-card" key={service.slug}>
+      <div className="reference-service-grid shell">
+        {services.map((service, index) => <Link href={'/services/' + service.slug} className="service-showcase-card" key={service.slug}>
           <div className="service-showcase-media">
             <Image
               src={serviceImages[service.slug].src}
               alt=""
               fill
-              sizes="(max-width: 760px) 100vw, (max-width: 1100px) 50vw, 25vw"
+              sizes="(max-width: 760px) 100vw, 45vw"
               style={{ objectPosition: serviceImages[service.slug].position }}
             />
           </div>
           <div className="service-showcase-body">
+            <div className="service-showcase-meta"><span>{String(index + 1).padStart(2, '0')}</span><span>{service.label}</span></div>
             <h3>{service.title}</h3>
-            <span className="service-showcase-link" aria-hidden="true">↗</span>
+            <p>{service.short}</p>
+            <span className="service-showcase-link">Explore service <span aria-hidden="true">↗</span></span>
           </div>
         </Link>)}
       </div>
