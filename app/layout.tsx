@@ -5,14 +5,13 @@ import { SiteFooter } from '@/components/site-footer';
 import { site } from '@/lib/content';
 import { isIndexable } from '@/lib/indexing';
 import './globals.css';
-import './editorial.css';
-import './electrical.css';
 
 const bodyFont = localFont({
-  src: './fonts/dm-sans-latin.woff2',
-  weight: '100 1000',
-  variable: '--font-body',
+  src: './fonts/inter-latin.woff2',
+  weight: '400 900',
+  variable: '--font-inter',
   display: 'swap',
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {

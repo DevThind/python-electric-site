@@ -4,3 +4,10 @@ node_modules
 !.env.example
 out
 *.tsbuildinfo
+
+# Local audit captures and video editing backups
+notes/ui-audit/*.png
+notes/ui-audit/results.json
+notes/ui-redesign/*.png
+notes/hero-media/*.jpg
+notes/hero-media/*.mp4

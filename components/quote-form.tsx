@@ -108,7 +108,7 @@ export function QuoteForm({ initialService = '' }: { initialService?: string }) 
     </Field>
     <div className="honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={e => update('website', e.target.value)} /></div>
     {errors.form && <p className="form-error-banner" role="alert">{errors.form}</p>}
-    <div className="form-submit"><p>We use these details only to handle your enquiry. See our <a href="/privacy">privacy policy</a>.</p><button className="button button-amber" type="submit" disabled={pending}>{pending ? 'Sending…' : 'Send Request'} <span aria-hidden="true">↗</span></button></div>
+    <div className="form-submit"><p>We use these details only to handle your enquiry. See our <a href="/privacy">privacy policy</a>.</p><button className="button button-primary" type="submit" disabled={pending}>{pending ? 'Sending…' : 'Send enquiry'} <span aria-hidden="true">↗</span></button></div>
   </form>;
 }
 

@@ -47,7 +47,7 @@ export const services: Service[] = [
       { question: 'Will new equipment require a panel upgrade?', answer: 'That depends on the existing electrical setup and the equipment being added. Share the model or power requirements if known so the right capacity questions can be reviewed.' },
     ],
     nextTitle: 'Tell us what is changing at home.',
-    nextText: 'A short description is enough to begin. Include the address or neighbourhood, the affected rooms, and any plans or photos you already have.',
+    nextText: 'A short description is enough to begin. Include the area and affected rooms. Photos or plans can be shared during follow-up.',
     image: '/images/work-1007.jpg', imageAlt: 'Pendant lighting above a residential stairwell',
   },
   {
@@ -70,7 +70,7 @@ export const services: Service[] = [
       { question: 'Can I combine several electrical changes in one enquiry?', answer: 'Yes. List each area or issue, then note which items are urgent and which are part of a later phase.' },
     ],
     nextTitle: 'Describe the space and the work ahead.',
-    nextText: 'Tell us how the property is used, what is changing, and any access or timing constraints. Plans and equipment details are welcome if available.',
+    nextText: 'Tell us how the property is used, what is changing, and any access or timing constraints. Plans and equipment details can be shared during follow-up.',
     image: '/images/service-commercial.webp', imageAlt: 'Commercial workspace with overhead lighting',
   },
   {
@@ -93,7 +93,7 @@ export const services: Service[] = [
       { question: 'What if the parking spot is far from the panel?', answer: 'The route still matters. Photos or a rough sketch of the panel and parking location can help identify the questions to address before installation.' },
     ],
     nextTitle: 'Start with your parking setup.',
-    nextText: 'Share your vehicle or charger details, a photo of the parking area, and anything you know about the panel. The remaining details can be worked through from there.',
+    nextText: 'Share your vehicle or charger details and anything you know about the panel. A photo of the parking area can be shared during follow-up.',
     image: '/images/service-ev-chargers.webp', imageAlt: 'Electric vehicle connected to a charger beside a home',
   },
   {

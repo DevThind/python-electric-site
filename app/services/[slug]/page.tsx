@@ -36,7 +36,7 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
           <span className="detail-kicker">{service.label} / Vancouver, BC</span>
           <h1>{service.title}<span className="period">.</span></h1>
           <p>{service.intro}</p>
-          <Link className="button button-amber" href={quoteHref(service.slug)}>Discuss this service <span aria-hidden="true">↗</span></Link>
+          <Link className="button button-primary" href={quoteHref(service.slug)}>Request a quote <span aria-hidden="true">↗</span></Link>
         </div>
         {service.image && <div className="detail-photo"><Image src={service.image} alt={service.imageAlt || ''} fill priority sizes="(max-width: 800px) 100vw, 45vw" /></div>}
       </div>
@@ -48,11 +48,11 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
         <div className="detail-examples">{service.areas.map((area, index) => <div key={area.title}><span>{String(index + 1).padStart(2, '0')}</span><div><h3>{area.title}</h3><p>{area.description}</p></div></div>)}</div>
         <div className="detail-factors"><span className="eyebrow">What shapes the scope</span><h3>Details that matter.</h3><ul>{service.factors.map(factor => <li key={factor}>{factor}</li>)}</ul></div>
       </div>
-      <div className="detail-guidance"><span className="eyebrow">Before you reach out</span><h3>What helps us understand the work</h3><p>{service.guidance}</p><Link href={quoteHref(service.slug)} className="text-link">Start your enquiry <span aria-hidden="true">↗</span></Link></div>
+      <div className="detail-guidance"><span className="eyebrow">Before you reach out</span><h3>What helps us understand the work</h3><p>{service.guidance}</p><p>Photos and plans can be shared during follow-up; the form does not accept attachments.</p><Link href={quoteHref(service.slug)} className="text-link">Request a quote <span aria-hidden="true">↗</span></Link></div>
     </section>
 
     <section className="service-faq section shell"><div className="service-faq-intro"><span className="eyebrow">Good to know</span><h2>Common questions.</h2><p>Every property is different. These answers can help you prepare a useful first enquiry.</p></div><div className="faq-list">{service.questions.map((item) => <details key={item.question}><summary>{item.question}<span aria-hidden="true">+</span></summary><p>{item.answer}</p></details>)}</div></section>
-    <section className="detail-next"><div className="shell detail-next-inner"><div><span className="eyebrow">A useful first step</span><h2>{service.nextTitle}</h2><p>{service.nextText}</p></div><Link className="button button-dark" href={quoteHref(service.slug)}>Ask about {service.title.toLowerCase()} <span aria-hidden="true">↗</span></Link></div></section>
+    <section className="detail-next"><div className="shell detail-next-inner"><div><span className="eyebrow">A useful first step</span><h2>{service.nextTitle}</h2><p>{service.nextText}</p></div><Link className="button button-dark" href={quoteHref(service.slug)}>Request a quote <span aria-hidden="true">↗</span></Link></div></section>
     <section className="related shell"><span className="eyebrow">Also explore</span><div>{related.map(item => <Link href={'/services/' + item.slug} key={item.slug}>{item.title}<span aria-hidden="true">↗</span></Link>)}</div></section>
   </>;
 }

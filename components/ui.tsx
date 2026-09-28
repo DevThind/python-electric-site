@@ -15,5 +15,5 @@ export function Photo({ photo, className = '', priority = false, sizes = '(max-w
 }
 
 export function ClosingCta({ title = "Let's talk about what's next.", text = 'Tell us about the property, what you want to change, and the electrical work you have in mind.' }: { title?: string; text?: string }) {
-  return <section className="closing-cta"><div className="shell closing-inner"><div><span className="eyebrow">Begin the conversation</span><h2>{title}</h2><p>{text}</p></div><Link className="button button-amber" href={quoteHref()}>Discuss your project <span aria-hidden="true">↗</span></Link></div></section>;
+  return <section className="closing-cta"><div className="shell closing-inner"><div><span className="eyebrow">Begin the conversation</span><h2>{title}</h2><p>{text}</p></div><Link className="button button-primary" href={quoteHref()}>Request a quote <span aria-hidden="true">↗</span></Link></div></section>;
 }

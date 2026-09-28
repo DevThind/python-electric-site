@@ -20,18 +20,18 @@ npm run build
 ## Edit content and images
 
 - `lib/content.ts`: confirmed business identity, service taxonomy and proposed copy, image descriptions, captions, and quote links.
-- `app/globals.css`: base component and layout styles. `app/editorial.css`: earlier shared styling. `app/electrical.css`: current trade-focused palette, service layout, and responsive visual direction.
+- `app/globals.css`: the shared semantic tokens, components, and responsive styles.
 - `public/images/`: web JPEG versions of all supplied work photos, plus eight illustrative `service-*.webp` images used on the home-page cards. The service images are not presented as completed projects. Use `scripts/convert-heic.ps1` when the original HEIC files are available. The script requires the Windows HEIC image decoder.
-- `public/videos/python-electric-hero.mp4`: desktop hero video, 12.4 seconds and about 2.2 MB. The opening exterior shot is two seconds shorter; the original video is backed up at `notes/python-electric-hero-original.mp4`. Smaller screens, reduced-motion preferences, and data-saving connections use the hero poster instead.
+- `public/videos/python-electric-hero.mp4`: desktop hero video, 15.2 seconds and about 3.9 MB, with a five-second exterior inspection opening followed by the existing EV charger and stair-lighting footage. Half-second fades connect the opening and loop ending. It uses silent H.264/yuv420p at 1280 × 720 and 24 fps, with fast-start MP4 metadata. The previous montage and poster are backed up in `notes/hero-media/`; the earlier original is retained at `notes/python-electric-hero-original.mp4`. Smaller screens, reduced-motion preferences, and data-saving connections use a frame from the new opening as the poster instead.
 - `notes/asset-map.md`: every original filename, visible content, dimensions, crop guidance, and website placement.
 
-The simple text wordmark is provisional. The selected website palette uses midnight blue (`#101F33`), pale blue-grey (`#F5F8FC`), and electric blue (`#40ACD0`). The current design uses a locally bundled DM Sans font and keeps the original opening video, followed by a service-first layout. The font license is in `app/fonts/OFL.txt`.
+The simple text wordmark is provisional. The selected website palette uses midnight blue (`#101F33`), pale blue-grey (`#F5F8FC`), and electric blue (`#40ACD0`). The design uses a self-hosted Inter variable font (weights 400–900), a desktop hero video with playback controls, four service choices, and a separate Projects gallery of genuine work photographs. The Inter font license is in `app/fonts/Inter-OFL.txt`.
 
 ## Fact and draft boundary
 
 **Confirmed in the brief:** Python Electric; intended domain; Vancouver, BC; broad electrical offering; client supplied Instagram URL; the supplied work photographs.
 
-**Proposed for client review:** The eight service categories and their descriptions, property and audience wording, enquiry instructions, process steps, FAQ answers, image captions, and page copy. These are intentionally conservative and contain no unverified licence, 24/7, review, pricing, warranty, or coverage claims. The visible portfolio is limited to the lighting work shown in the photos. No case studies were invented.
+**Proposed for client review:** The four service categories and their descriptions, property and audience wording, enquiry instructions, process steps, FAQ answers, image captions, and page copy. These are intentionally conservative and contain no unverified licence, 24/7, review, pricing, warranty, or coverage claims. The visible portfolio is limited to the lighting work shown in the photos. No case studies were invented.
 
 **Missing for launch:** Verified phone and email; final quote recipient; actual logo and brand colours if any; confirmed service priorities and coverage areas; operating and emergency hours if advertised; licence and insurance details if advertised; photo captions and project permissions; approval of the separate hero poster and video; genuine review sources if reviews are desired; privacy retention and inbox access practices. Confirm specialist audiences before making stronger public claims.
 
@@ -66,4 +66,4 @@ External services for this implementation are a Next.js host, [Resend for enquir
 
 ## Verification notes
 
-The local build, type check, lint check, and browser checks are recorded in the handover. Current home previews are `notes/screenshots/electrical-home-desktop-top.png` and `electrical-home-mobile-top.png`. Other screenshots in that directory document earlier layouts and references. A local synthetic browser run is not a Lighthouse or field performance result. Real provider delivery, DNS, HTTPS, and production indexing remain launch checks.
+The local build, type check, lint check, and browser checks are recorded in the handover. Current before/after previews are in `notes/ui-redesign/`; `notes/ui-audit/` holds the original review. Audit screenshots, generated results, and video editing backups stay local and are ignored by Git; the website's required public video and poster are versioned. A local synthetic browser run is not a Lighthouse or field performance result. Real provider delivery, DNS, HTTPS, and production indexing remain launch checks.

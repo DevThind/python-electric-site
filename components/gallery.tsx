@@ -2,14 +2,27 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import type { WorkPhoto } from '@/lib/content';
 
 export function Gallery({ photos }: { photos: WorkPhoto[] }) {
-  const [selected, setSelected] = useState<WorkPhoto | null>(null);
+  const [selected, setSelected] = useState<number | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const trigger = useRef<HTMLButtonElement | null>(null);
-  function open(photo: WorkPhoto, button: HTMLButtonElement) { trigger.current = button; setSelected(photo); requestAnimationFrame(() => dialog.current?.showModal()); }
-  function close() { dialog.current?.close(); setSelected(null); trigger.current?.focus(); }
-  return <><div className="gallery-grid">{photos.map((photo, i) => <button key={photo.id} className={`gallery-card gallery-card-${i % 6}`} type="button" onClick={event => open(photo, event.currentTarget)} aria-label={`View larger image: ${photo.caption}`}><span className="gallery-image"><Image src={photo.src} alt={photo.alt} fill sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw" /></span><span className="gallery-caption"><span>{photo.caption}<small>{photo.group}</small></span><span aria-hidden="true">↗</span></span></button>)}<div className="gallery-end-card"><span className="eyebrow">Beyond the images</span><p>There’s more to electrical work than what the camera sees.</p><Link href="/services">Explore all services <span aria-hidden="true">↗</span></Link></div></div><dialog ref={dialog} className="lightbox" onClose={() => { setSelected(null); trigger.current?.focus(); }} onClick={event => { if (event.target === dialog.current) close(); }}>{selected && <div className="lightbox-content"><button className="lightbox-close" type="button" onClick={close} aria-label="Close image">×</button><Image src={selected.src} alt={selected.alt} width={selected.width} height={selected.height} sizes="90vw" /><p>{selected.caption}</p></div>}</dialog></>;
+  function open(index: number, button: HTMLButtonElement) { trigger.current = button; setSelected(index); requestAnimationFrame(() => dialog.current?.showModal()); }
+  function close() { dialog.current?.close(); }
+  function move(direction: number) { setSelected(current => current === null ? null : (current + direction + photos.length) % photos.length); }
+  useEffect(() => {
+    if (selected === null) return;
+    const key = (event: KeyboardEvent) => {
+      if (event.key === 'ArrowRight') { event.preventDefault(); setSelected(current => current === null ? null : (current + 1) % photos.length); }
+      if (event.key === 'ArrowLeft') { event.preventDefault(); setSelected(current => current === null ? null : (current - 1 + photos.length) % photos.length); }
+    };
+    document.addEventListener('keydown', key);
+    return () => document.removeEventListener('keydown', key);
+  }, [selected, photos.length]);
+  const photo = selected === null ? null : photos[selected];
+  return <><div className="gallery-grid">{photos.map((item, i) => <button key={item.id} className="gallery-card" type="button" onClick={event => open(i, event.currentTarget)} aria-label={`View larger image: ${item.caption}`}><span className="gallery-image"><Image src={item.src} alt={item.alt} fill sizes="(max-width: 600px) 100vw, (max-width: 1000px) 50vw, 33vw" /></span><span className="gallery-caption"><span>{item.caption}<small>{item.group}</small></span><span aria-hidden="true">↗</span></span></button>)}
+    <div className="gallery-end-card"><span className="eyebrow">Beyond the images</span><p>Electrical work goes beyond what the camera sees.</p><Link href="/services" className="text-link">Explore all services <span aria-hidden="true">↗</span></Link></div>
+  </div><dialog ref={dialog} className="lightbox" aria-label="Installation photo viewer" onClose={() => { setSelected(null); trigger.current?.focus(); }} onClick={event => { if (event.target === dialog.current) close(); }}>{photo && <div className="lightbox-content"><div className="lightbox-top"><span>{selected! + 1} / {photos.length}</span><button className="lightbox-close" type="button" onClick={close} aria-label="Close image">×</button></div><Image src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} sizes="90vw" /><div className="lightbox-bottom"><button type="button" onClick={() => move(-1)} aria-label="Previous image">← Previous</button><p>{photo.caption}</p><button type="button" onClick={() => move(1)} aria-label="Next image">Next →</button></div></div>}</dialog></>;
 }

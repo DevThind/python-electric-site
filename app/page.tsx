@@ -1,98 +1,56 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { HeroVideo } from '@/components/hero-video';
-import { ArrowLink } from '@/components/ui';
+import { ClosingCta } from '@/components/ui';
 import { services } from '@/lib/content';
 
-const serviceImages: Record<string, { src: string; position: string }> = {
-  'residential-electrical': {
-    src: '/images/service-residential.webp',
-    position: 'center 51%',
-  },
-  'commercial-electrical': {
-    src: '/images/service-commercial.webp',
-    position: 'center 48%',
-  },
-  'ev-chargers': {
-    src: '/images/service-ev-chargers.webp',
-    position: 'center 50%',
-  },
-  'electrical-restoration': {
-    src: '/images/service-restoration.webp',
-    position: '55% center',
-  },
+const serviceImages: Record<string, string> = {
+  'residential-electrical': '/images/service-residential.webp',
+  'commercial-electrical': '/images/service-commercial.webp',
+  'ev-chargers': '/images/service-ev-chargers.webp',
+  'electrical-restoration': '/images/service-restoration.webp',
 };
 
 const faqs = [
-  ['Do I need plans before getting in touch?', 'No. A short description is enough to begin. If you have drawings, photos, equipment details, or a schedule, include them with your enquiry.'],
-  ['Can I ask about a small repair or a larger project?', 'Yes. Get in touch about repairs, installations, upgrades, lighting, and electrical work within renovations or construction.'],
-  ['Can the form give me a firm quote?', 'The form starts the conversation. Existing conditions, equipment, access, and the work involved may need a closer assessment before a scope can be confirmed.'],
+  ['Do I need plans before getting in touch?', 'No. A short description is enough to begin. Photos, plans, or equipment details can be shared during follow-up.'],
+  ['Can I ask about a small repair?', 'Yes. Tell us what is happening, where it happens, and whether the issue is ongoing or intermittent.'],
+  ['Can the form give me a firm quote?', 'The form starts the conversation. The existing setup, access, and work involved may need a closer review before a scope can be confirmed.'],
 ];
 
 export default function Home() {
-  return <div className="reference-home electrical-home">
-    <section className="reference-hero">
+  return <>
+    <section className="home-hero">
       <HeroVideo />
-      <div className="reference-hero-shade" />
-      <div className="reference-hero-content shell">
-        <span className="eyebrow reference-hero-kicker"><span className="signal-dot" /> Vancouver, BC · Electrical services</span>
-        <h1><span className="hero-title-lead">Electrical work</span><em>that works for you.</em></h1>
-        <p>Repairs, installations, panel and circuit upgrades, and project electrical work for homes and businesses.</p>
-        <div className="reference-hero-actions">
-          <Link className="button button-amber" href="/contact">Request a quote <span aria-hidden="true">↗</span></Link>
-          <Link className="button reference-ghost-button" href="/services">Explore services <span aria-hidden="true">↗</span></Link>
+      <div className="home-hero-shade" />
+      <div className="shell home-hero-content">
+        <span className="eyebrow hero-eyebrow">Vancouver, British Columbia</span>
+        <h1><span>Electrical services</span>{' '}<span>for Vancouver homes</span>{' '}<span>and businesses.</span></h1>
+        <p>From repairs and lighting to renovations, EV charging, and restoration, start with the electrical work your space needs.</p>
+        <div className="hero-actions"><Link className="button button-primary" href="/contact">Request a quote <span aria-hidden="true">↗</span></Link><Link className="button button-ghost" href="/services">Explore services <span aria-hidden="true">↗</span></Link></div>
+      </div>
+    </section>
+    <section className="home-intro section" aria-labelledby="home-intro-title">
+      <div className="shell home-intro-grid">
+        <div className="home-intro-heading">
+          <span className="eyebrow">Python Electric / Vancouver</span>
+          <h2 id="home-intro-title">Work that begins with the right details.</h2>
+        </div>
+        <div className="home-intro-copy">
+          <p className="home-intro-lead">Electrical services for homes, business spaces, and projects taking shape in Vancouver.</p>
+          <p>From a repair to a renovation, tell us what your space needs. We start with the details of your site and the work you have in mind.</p>
+          <Link href="/about" className="text-link">More about us <span aria-hidden="true">↗</span></Link>
         </div>
       </div>
     </section>
-
-    <section className="reference-services" id="services">
-      <div className="reference-services-intro shell">
-        <div><span className="eyebrow">What we do</span><h2>Electrical services.</h2></div>
-      </div>
-      <div className="reference-service-grid shell">
-        {services.map((service, index) => <Link href={'/services/' + service.slug} className="service-showcase-card" key={service.slug}>
-          <div className="service-showcase-media">
-            <Image
-              src={serviceImages[service.slug].src}
-              alt=""
-              fill
-              sizes="(max-width: 760px) 100vw, 45vw"
-              style={{ objectPosition: serviceImages[service.slug].position }}
-            />
-          </div>
-          <div className="service-showcase-body">
-            <div className="service-showcase-meta"><span>{String(index + 1).padStart(2, '0')}</span><span>{service.label}</span></div>
-            <h3>{service.title}</h3>
-            <p>{service.short}</p>
-            <span className="service-showcase-link">Explore service <span aria-hidden="true">↗</span></span>
-          </div>
-        </Link>)}
-      </div>
-    </section>
-
-    <section className="trade-scope shell">
-      <div className="trade-scope-copy">
-        <span className="eyebrow">Built around the work</span>
-        <h2>Tell us what needs <em>power, repair,</em> or change.</h2>
-        <p>A tripping circuit, a planned installation, and a renovation each need a different starting point. Share what is happening at the property and what you need the electrical system to support.</p>
-        <p>We can discuss the existing setup, the equipment involved, and the next step needed to define the work.</p>
-        <ArrowLink href="/contact">Start an electrical enquiry</ArrowLink>
-      </div>
-      <div className="trade-scope-panel" aria-label="Common details for an electrical enquiry">
-        <div className="trade-panel-head"><span>Project intake</span><span>Python Electric / Vancouver</span></div>
-        <div className="trade-panel-title">What to share<br /><strong>at the start</strong></div>
-        <div className="trade-panel-lines">
-          <div><span>01</span><b>Property</b><small>Home, business, or construction site</small></div>
-          <div><span>02</span><b>Electrical need</b><small>Issue, installation, or planned upgrade</small></div>
-          <div><span>03</span><b>Useful details</b><small>Photos, equipment, drawings, and timing</small></div>
-        </div>
-        <span className="trade-panel-foot">A clear starting point for a useful conversation <b aria-hidden="true">↗</b></span>
-      </div>
-    </section>
-
-    <section className="reference-faq shell">
-      <div><span className="eyebrow">Common questions</span><h2>Before you <em>get in touch.</em></h2></div>
-      <div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div>
-    </section>
-  </div>;
+    <section className="home-services section" id="services"><div className="shell">
+      <div className="section-heading"><div><span className="eyebrow">What we do</span><h2>Electrical work, clearly scoped.</h2></div><p>Choose the closest starting point. We can discuss the details of your property and project from there.</p></div>
+      <div className="home-service-grid">{services.map((service, index) => <Link href={'/services/' + service.slug} className="home-service-card" key={service.slug}>
+        <div className="home-service-image"><Image src={serviceImages[service.slug]} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" /></div>
+        <div className="home-service-body"><span className="card-number">0{index + 1} / {service.label}</span><h3>{service.title}</h3><p>{service.short}</p><span className="card-link">Explore service <span aria-hidden="true">↗</span></span></div>
+      </Link>)}</div>
+    </div></section>
+    <section className="home-process section"><div className="shell"><div className="section-heading"><div><span className="eyebrow">Getting started</span><h2>A simple first step.</h2></div><p>Share enough to begin. The finer details can follow in conversation.</p></div><div className="process-grid"><div><span>01</span><h3>Describe the work</h3><p>Tell us what needs repair, installation, or planning.</p></div><div><span>02</span><h3>Set the context</h3><p>Include your area, property type, and any timing that matters.</p></div><div><span>03</span><h3>Continue the conversation</h3><p>Photos, plans, and equipment details can be shared during follow-up.</p></div></div></div></section>
+    <section className="home-faq section"><div className="shell faq-layout"><div><span className="eyebrow">Common questions</span><h2>Before you get in touch.</h2></div><div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
+    <ClosingCta title="Tell us what you have in mind." text="A short description is enough to start a conversation about the electrical work ahead." />
+  </>;
 }

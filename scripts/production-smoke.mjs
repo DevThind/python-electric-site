@@ -1,7 +1,8 @@
 import { chromium } from 'playwright';
 
-const base = 'http://localhost:3001';
-const routes = ['/', '/services', '/work', '/about', '/contact', '/privacy', '/services/residential-electrical', '/services/commercial-electrical', '/services/construction-rewiring', '/services/panels-circuits-upgrades', '/services/lighting', '/services/repairs-maintenance', '/services/ev-chargers', '/services/electrical-restoration'];
+const base = process.env.SITE_URL || 'http://localhost:3001';
+const routes = ['/', '/services', '/work', '/about', '/contact', '/privacy', '/services/residential-electrical', '/services/commercial-electrical', '/services/ev-chargers', '/services/electrical-restoration'];
+const formerRoutes = ['/services/construction-rewiring', '/services/panels-circuits-upgrades', '/services/lighting', '/services/repairs-maintenance'];
 const browser = await chromium.launch({ executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe', headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const failures = [];
@@ -21,9 +22,13 @@ for (const route of routes) {
     console.log(`local production browser timing: ${JSON.stringify(perf)}`);
   }
 }
+for (const route of formerRoutes) {
+  const response = await page.request.get(`${base}${route}`, { maxRedirects: 0 });
+  if (![301, 308].includes(response.status()) || !response.headers().location?.endsWith('/services')) failures.push(`Legacy redirect ${route}: ${response.status()} ${response.headers().location}`);
+}
 const invalid = await page.request.post(`${base}/api/quote`, { data: { name: 'X' } });
 if (invalid.status() !== 400) failures.push(`Invalid form API returned ${invalid.status()}`);
-const valid = { name: 'Test Client', email: 'test@example.net', phone: '', service: 'lighting', area: 'Vancouver', message: 'Please discuss a lighting installation.', website: '' };
+const valid = { name: 'Test Client', email: 'test@example.net', phone: '', service: 'residential-electrical', area: 'Vancouver', message: 'Please discuss a lighting installation.', website: '' };
 const unconfigured = await page.request.post(`${base}/api/quote`, { data: valid });
 if (unconfigured.status() !== 503) failures.push(`Unconfigured delivery returned ${unconfigured.status()}`);
 await page.goto(`${base}/contact`);
@@ -32,7 +37,7 @@ await page.locator('[name=email]').fill(valid.email);
 await page.locator('[name=service]').selectOption(valid.service);
 await page.locator('[name=area]').fill(valid.area);
 await page.locator('[name=message]').fill(valid.message);
-await page.getByRole('button', { name: /Send Request/ }).click();
+await page.getByRole('button', { name: /Send enquiry/ }).click();
 await page.getByText('Enquiry delivery is not configured yet. Please try again later.').waitFor();
 if (await page.locator('[name=message]').inputValue() !== valid.message) failures.push('Form lost values after delivery failure');
 const robots = await page.request.get(`${base}/robots.txt`);
