@@ -1,7 +1,7 @@
 'use client';
 
 import { useRef, useState, type FormEvent, type ReactNode } from 'react';
-import { services } from '@/lib/content';
+import { services, site } from '@/lib/content';
 
 type Values = { name: string; email: string; phone: string; service: string; area: string; message: string; website: string };
 type Errors = Partial<Record<keyof Values | 'form', string>>;
@@ -13,7 +13,7 @@ function validate(values: Values): Errors {
   if (values.name.trim().length < 2) errors.name = 'Enter your name.';
   if (!values.email.trim() && !values.phone.trim()) errors.email = 'Add an email address or phone number.';
   if (values.email.trim() && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) errors.email = 'Enter a valid email address.';
-  if (values.phone.trim() && !/^[+()\d\s.-]{7,30}$/.test(values.phone.trim())) errors.phone = 'Enter a valid phone number.';
+  if (values.phone.trim() && (!/^[+()\d\s.-]{7,30}$/.test(values.phone.trim()) || values.phone.replace(/\D/g, '').length < 7)) errors.phone = 'Enter a valid phone number.';
   if (!values.service) errors.service = 'Choose a service or “Not sure yet”.';
   if (values.area.trim().length < 2) errors.area = 'Enter your city or area.';
   if (values.message.trim().length < 10) errors.message = 'Describe the project in at least 10 characters.';
@@ -60,7 +60,11 @@ export function QuoteForm({ initialService = '' }: { initialService?: string }) 
         }
         return;
       }
-      setAccepted(result.mode === 'test' ? 'test' : 'real');
+      if (result.accepted !== true || (result.mode !== 'test' && result.mode !== 'real')) {
+        setErrors({ form: 'We could not confirm your request was sent. Please try again.' });
+        return;
+      }
+      setAccepted(result.mode);
     } catch {
       setErrors({ form: 'Your request could not be sent. Check your connection and try again.' });
     } finally {
@@ -107,7 +111,7 @@ export function QuoteForm({ initialService = '' }: { initialService?: string }) 
       <textarea id="message" name="message" required maxLength={3000} rows={5} value={values.message} onChange={e => update('message', e.target.value)} aria-invalid={!!errors.message} aria-describedby={errors.message ? 'message-error' : undefined} placeholder="What needs to be installed, repaired, or changed?" />
     </Field>
     <div className="honeypot" aria-hidden="true"><label htmlFor="website">Website</label><input id="website" name="website" tabIndex={-1} autoComplete="off" value={values.website} onChange={e => update('website', e.target.value)} /></div>
-    {errors.form && <p className="form-error-banner" role="alert">{errors.form}</p>}
+    {errors.form && <p className="form-error-banner" role="alert">{errors.form} You can also <a href={'mailto:' + site.email}>email us directly</a>.</p>}
     <div className="form-submit"><p>We use these details only to handle your enquiry. See our <a href="/privacy">privacy policy</a>.</p><button className="button button-primary" type="submit" disabled={pending}>{pending ? 'Sending…' : 'Send enquiry'} <span aria-hidden="true">↗</span></button></div>
   </form>;
 }

@@ -19,7 +19,7 @@ export default function PrivacyPage() {
     <h2>Analytics and cookies</h2>
     <p>This website does not add analytics or advertising pixels. Essential hosting functions may still use technical cookies or logs.</p>
     <h2>Questions about your information</h2>
-    <p>You can ask how your enquiry information is handled by using the contact form.</p>
+    <p>You can ask how your enquiry information is handled by emailing <a className="email-link" href={'mailto:' + site.email}>{site.email}</a> or using the contact form.</p>
     <h2>External links</h2>
     <p>Links to Instagram lead to a separate service with its own privacy practices.</p>
     <p className="legal-end">{site.name} · {site.location}<br /><Link href="/contact">Return to contact</Link></p>

@@ -3,9 +3,11 @@ export const site = {
   origin: 'https://www.pythonelectric.ca',
   location: 'Vancouver, British Columbia',
   shortLocation: 'Vancouver, BC',
+  serviceAreas: ['Squamish & Whistler', 'BC Interior', 'Metro Vancouver', 'Fraser Valley', 'Vancouver Island'],
   instagram: 'https://www.instagram.com/python_electric?stkn=MTFuMzU3a2duazA2aw==',
   phone: null as string | null,
-  email: null as string | null,
+  email: 'Pythonelectric07@gmail.com',
+  licenceNumber: 'LEL00004146',
 } as const;
 
 export type Service = {
@@ -24,6 +26,7 @@ export type Service = {
   nextText: string;
   image?: string;
   imageAlt?: string;
+  photos?: GalleryPhoto[];
 };
 
 export const services: Service[] = [
@@ -48,7 +51,15 @@ export const services: Service[] = [
     ],
     nextTitle: 'Tell us what is changing at home.',
     nextText: 'A short description is enough to begin. Include the area and affected rooms. Photos or plans can be shared during follow-up.',
-    image: '/images/work-1007.jpg', imageAlt: 'Pendant lighting above a residential stairwell',
+    image: '/images/08_living_room_lighting.jpg', imageAlt: 'Living room with recessed ceiling lighting and wall sconces beside a fireplace',
+    photos: [
+      { id: 'residential-chandelier', src: '/images/01_chandelier.jpg', alt: 'Circular chandelier with glass shades and warm bulbs in a home', caption: 'Chandelier installation', group: 'Interior lighting', width: 325, height: 609 },
+      { id: 'residential-tesla-charger', src: '/images/02_tesla_ev_charger.jpg', alt: 'Tesla wall connector mounted on an exterior post with its charging cable', caption: 'Tesla EV charger', group: 'EV charging', width: 322, height: 609 },
+      { id: 'residential-meter', src: '/images/04_utility_meter_pole.jpg', alt: 'Outdoor electrical meter with service conduits connected to overhead utility lines', caption: 'Outdoor electrical service', group: 'Meters & power supply', width: 325, height: 609 },
+      { id: 'residential-wall-charger', src: '/images/05_wall_ev_charger.jpg', alt: 'Wall-mounted EV charger with a coiled cable connected to a garage outlet', caption: 'Wall-mounted EV charger', group: 'EV charging', width: 325, height: 597 },
+      { id: 'residential-exterior', src: '/images/07_house_exterior_lighting.jpg', alt: 'House at night with warm lighting along the roofline, garage, and landscaping', caption: 'Exterior & landscape lighting', group: 'Exterior lighting', width: 326, height: 597 },
+      { id: 'residential-living-room', src: '/images/08_living_room_lighting.jpg', alt: 'Living room with recessed ceiling lights and wall sconces framing a fireplace', caption: 'Living room lighting', group: 'Interior lighting', width: 325, height: 597 },
+    ],
   },
   {
     slug: 'commercial-electrical', title: 'Commercial electrical', label: 'For your business',
@@ -71,7 +82,11 @@ export const services: Service[] = [
     ],
     nextTitle: 'Describe the space and the work ahead.',
     nextText: 'Tell us how the property is used, what is changing, and any access or timing constraints. Plans and equipment details can be shared during follow-up.',
-    image: '/images/service-commercial.webp', imageAlt: 'Commercial workspace with overhead lighting',
+    image: '/images/03_commercial_interior.jpg', imageAlt: 'Commercial interior with ceiling-mounted track lighting and exposed beams',
+    photos: [
+      { id: 'commercial-interior', src: '/images/03_commercial_interior.jpg', alt: 'Commercial space under renovation with track lighting below an exposed ceiling', caption: 'Commercial interior lighting', group: 'Workspace lighting', width: 326, height: 609 },
+      { id: 'commercial-meter-panels', src: '/images/06_electrical_meter_panels.jpg', alt: 'Two electrical meters with adjacent disconnect enclosures and metal conduits', caption: 'Electrical meters & panels', group: 'Meters & power supply', width: 322, height: 597 },
+    ],
   },
   {
     slug: 'ev-chargers', title: 'EV charger installation', label: 'For your vehicle',
@@ -128,15 +143,19 @@ export const formerServiceDestinations: Record<string, string> = {
   'repairs-maintenance': '/services',
 };
 
-export type WorkPhoto = {
+export type GalleryPhoto = {
   id: string;
-  source: string;
   src: string;
   alt: string;
   caption: string;
-  group: 'Interior lighting' | 'Exterior lighting';
+  group: string;
   width: number;
   height: number;
+};
+
+export type WorkPhoto = GalleryPhoto & {
+  source: string;
+  group: 'Interior lighting' | 'Exterior lighting';
   focal: string;
 };
 

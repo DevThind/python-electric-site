@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ClosingCta, Photo } from '@/components/ui';
+import { ServiceAreas } from '@/components/service-areas';
 import { photoById, services } from '@/lib/content';
 import { pageMetadata } from '@/lib/metadata';
 
@@ -19,6 +21,7 @@ export default function ServicesPage() {
     <section className="services-page-section shell">
       <div className="services-page-grid">{services.map((service) => <Link className="service-card" href={'/services/' + service.slug} key={service.slug}>
         <span className="service-card-top"><span>{service.label}</span><span aria-hidden="true">↗</span></span>
+        {service.photos && service.image && <div className="service-card-photo"><Image src={service.image} alt={service.imageAlt || ''} fill sizes="(max-width: 520px) 100vw, 50vw" /></div>}
         <div><h2>{service.title}</h2><p>{service.short}</p></div>
         <span className="service-card-bottom">Explore service <span aria-hidden="true">↗</span></span>
       </Link>)}</div>
@@ -28,6 +31,7 @@ export default function ServicesPage() {
       <div><span className="eyebrow">Work on site</span><h2>See installed electrical work.</h2><p>Our gallery shows finished lighting installations. For repairs, wiring, panels, or other electrical work, tell us what your property needs and we can start with the details.</p><Link href="/work" className="button button-outline">View the gallery <span aria-hidden="true">↗</span></Link></div>
       <Photo photo={photoById('1033')} sizes="(max-width: 800px) 100vw, 45vw" />
     </div></section>
+    <ServiceAreas />
     <ClosingCta />
   </>;
 }

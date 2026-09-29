@@ -2,11 +2,12 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { HeroVideo } from '@/components/hero-video';
 import { ClosingCta } from '@/components/ui';
+import { ServiceAreas } from '@/components/service-areas';
 import { services } from '@/lib/content';
 
 const serviceImages: Record<string, string> = {
-  'residential-electrical': '/images/service-residential.webp',
-  'commercial-electrical': '/images/service-commercial.webp',
+  'residential-electrical': '/images/07_house_exterior_lighting.jpg',
+  'commercial-electrical': '/images/03_commercial_interior.jpg',
   'ev-chargers': '/images/service-ev-chargers.webp',
   'electrical-restoration': '/images/service-restoration.webp',
 };
@@ -50,6 +51,7 @@ export default function Home() {
       </Link>)}</div>
     </div></section>
     <section className="home-process section"><div className="shell"><div className="section-heading"><div><span className="eyebrow">Getting started</span><h2>A simple first step.</h2></div><p>Share enough to begin. The finer details can follow in conversation.</p></div><div className="process-grid"><div><span>01</span><h3>Describe the work</h3><p>Tell us what needs repair, installation, or planning.</p></div><div><span>02</span><h3>Set the context</h3><p>Include your area, property type, and any timing that matters.</p></div><div><span>03</span><h3>Continue the conversation</h3><p>Photos, plans, and equipment details can be shared during follow-up.</p></div></div></div></section>
+    <ServiceAreas />
     <section className="home-faq section"><div className="shell faq-layout"><div><span className="eyebrow">Common questions</span><h2>Before you get in touch.</h2></div><div className="faq-list">{faqs.map(([question, answer]) => <details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></section>
     <ClosingCta title="Tell us what you have in mind." text="A short description is enough to start a conversation about the electrical work ahead." />
   </>;

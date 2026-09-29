@@ -1,7 +1,7 @@
 import { chromium } from 'playwright';
 import { resolve } from 'node:path';
 
-const base = 'http://localhost:3100';
+const base = process.env.SITE_URL || 'http://localhost:3100';
 const browser = await chromium.launch({ executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', headless: true });
 const failures = [];
 const widths = [1440, 1024, 768, 390, 360];
@@ -112,7 +112,8 @@ if (await reduced.locator('video').count()) failures.push('reduced motion video 
 await reduced.close();
 const smallMotion = await browser.newPage({ viewport: { width: 390, height: 600 }, reducedMotion: 'no-preference' });
 await smallMotion.goto(base);
-if (await smallMotion.locator('video').count()) failures.push('small-screen video mounted');
+await smallMotion.locator('video').waitFor();
+if (!await smallMotion.locator('video').evaluate(video => video.muted && video.playsInline)) failures.push('small-screen video is not muted and inline');
 await smallMotion.close();
 const dataSaving = await browser.newPage({ viewport: { width: 1440, height: 900 }, reducedMotion: 'no-preference' });
 await dataSaving.addInitScript(() => Object.defineProperty(navigator, 'connection', { configurable: true, value: { saveData: true } }));

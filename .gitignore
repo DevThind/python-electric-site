@@ -9,5 +9,6 @@ out
 notes/ui-audit/*.png
 notes/ui-audit/results.json
 notes/ui-redesign/*.png
+notes/ui-redesign/*-results.json
 notes/hero-media/*.jpg
 notes/hero-media/*.mp4

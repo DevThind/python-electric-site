@@ -1,9 +1,11 @@
 import assert from 'node:assert/strict';
-import { chromium } from 'playwright';
+import { chromium, devices } from 'playwright';
+
+const baseUrl = process.env.SITE_URL || 'http://localhost:3000';
 
 const browser = await chromium.launch({ executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-await page.goto('http://127.0.0.1:3100/');
+await page.goto(baseUrl + '/');
 await page.evaluate(() => document.fonts.ready);
 await page.waitForFunction(() => document.querySelector('video')?.readyState >= 2);
 const metadata = await page.locator('video').evaluate(video => ({ duration: video.duration, width: video.videoWidth, height: video.videoHeight, muted: video.muted, loop: video.loop, source: video.currentSrc }));
@@ -35,8 +37,62 @@ await page.waitForFunction(() => document.querySelector('video').paused);
 console.log('Decoded media, three scenes, loop playback, controls, manual pause retention, and offscreen pause passed', metadata);
 await page.close();
 
+for (const device of ['iPhone 13', 'Pixel 7']) {
+  const mobile = await browser.newPage({ ...devices[device], reducedMotion: 'no-preference' });
+  const errors = [];
+  mobile.on('pageerror', error => errors.push(error.message));
+  await mobile.goto(baseUrl + '/');
+  await mobile.waitForFunction(() => { const video = document.querySelector('video'); return video?.readyState >= 2 && !video.paused && video.currentTime > 0; });
+  assert(await mobile.locator('video').evaluate(video => video.muted && video.playsInline && video.autoplay));
+  const time = await mobile.locator('video').evaluate(video => video.currentTime);
+  await mobile.waitForFunction(time => document.querySelector('video').currentTime > time + .25, time);
+  const control = mobile.locator('.hero-video-control');
+  const bounds = await control.boundingBox();
+  const actions = await mobile.locator('.hero-actions').boundingBox();
+  assert(bounds.height >= 44 && bounds.y >= actions.y + actions.height, 'Mobile control must be touch-sized and clear of the quote buttons');
+  await mobile.getByRole('button', { name: 'Pause background video' }).click();
+  await mobile.waitForFunction(() => document.querySelector('video').paused);
+  await mobile.evaluate(() => scrollTo(0, document.querySelector('.home-hero').offsetHeight + 200));
+  await mobile.evaluate(() => scrollTo(0, 0));
+  assert(await mobile.locator('video').evaluate(video => video.paused));
+  await mobile.getByRole('button', { name: 'Play background video' }).click();
+  await mobile.waitForFunction(() => !document.querySelector('video').paused);
+  await mobile.evaluate(() => scrollTo(0, document.querySelector('.home-hero').offsetHeight + 200));
+  await mobile.waitForFunction(() => document.querySelector('video').paused);
+  assert(await mobile.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  assert.deepEqual(errors, []);
+  console.log(device, 'decoded and played inline; pause, resume, and offscreen pause passed');
+  await mobile.close();
+}
+
+const blocked = await browser.newPage({ ...devices['iPhone 13'], reducedMotion: 'no-preference' });
+const blockedErrors = [];
+blocked.on('pageerror', error => blockedErrors.push(error.message));
+await blocked.addInitScript(() => {
+  const play = HTMLMediaElement.prototype.play;
+  let allowPlayback = false;
+  document.addEventListener('click', () => { allowPlayback = true; }, true);
+  HTMLMediaElement.prototype.play = function () {
+    if (!allowPlayback) return Promise.reject(new DOMException('Autoplay blocked', 'NotAllowedError'));
+    return play.call(this);
+  };
+  HTMLMediaElement.prototype.setAttribute = new Proxy(HTMLMediaElement.prototype.setAttribute, {
+    apply(target, element, args) {
+      if (args[0].toLowerCase() === 'autoplay') return;
+      return Reflect.apply(target, element, args);
+    },
+  });
+});
+await blocked.goto(baseUrl + '/');
+await blocked.waitForFunction(() => document.querySelector('video')?.readyState >= 2);
+assert(await blocked.locator('video').evaluate(video => video.paused));
+await blocked.getByRole('button', { name: 'Play background video' }).click();
+await blocked.waitForFunction(() => { const video = document.querySelector('video'); return !video.paused && video.currentTime > 0; });
+assert.deepEqual(blockedErrors, []);
+console.log('Mobile play button starts playback after simulated autoplay rejection');
+await blocked.close();
+
 for (const [label, options, saveData] of [
-  ['mobile', { viewport: { width: 390, height: 844 } }, false],
   ['reduced-motion', { viewport: { width: 1440, height: 900 }, reducedMotion: 'reduce' }, false],
   ['save-data', { viewport: { width: 1440, height: 900 } }, true],
 ]) {
@@ -44,14 +100,13 @@ for (const [label, options, saveData] of [
   const requests = [];
   fallback.on('request', request => { if (request.url().includes('.mp4')) requests.push(request.url()); });
   if (saveData) await fallback.addInitScript(() => Object.defineProperty(navigator, 'connection', { configurable: true, value: { saveData: true } }));
-  await fallback.goto('http://127.0.0.1:3100/');
+  await fallback.goto(baseUrl + '/');
   await fallback.evaluate(() => document.fonts.ready);
   assert.equal(await fallback.locator('video').count(), 0);
   assert.equal(requests.length, 0);
-  const response = await fallback.request.get('http://127.0.0.1:3100/images/python-electric-hero-poster.jpg?v=20260928');
+  const response = await fallback.request.get(baseUrl + '/images/python-electric-hero-poster.jpg?v=20260928');
   assert.equal(response.status(), 200);
   assert(await fallback.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-  if (label === 'mobile') await fallback.screenshot({ path: 'notes/ui-redesign/after-video-poster-390.png' });
   console.log(label, 'uses poster without video requests');
   await fallback.close();
 }

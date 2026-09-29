@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
 import { notFound, permanentRedirect } from 'next/navigation';
+import { Gallery } from '@/components/gallery';
 import { formerServiceDestinations, quoteHref, serviceBySlug, services } from '@/lib/content';
 import { pageMetadata } from '@/lib/metadata';
 
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function ServiceDetail({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const service = serviceBySlug(slug);
-  if (formerServiceDestinations[slug]) permanentRedirect(formerServiceDestinations[slug]);
+  if (Object.hasOwn(formerServiceDestinations, slug)) permanentRedirect(formerServiceDestinations[slug]);
   if (!service) notFound();
   const related = services.filter(item => item.slug !== slug);
 
@@ -41,6 +42,11 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
         {service.image && <div className="detail-photo"><Image src={service.image} alt={service.imageAlt || ''} fill priority sizes="(max-width: 800px) 100vw, 45vw" /></div>}
       </div>
     </section>
+
+    {service.photos && <section className="service-gallery section shell" aria-labelledby="service-gallery-title">
+      <div className="section-heading"><div><span className="eyebrow">Work on site</span><h2 id="service-gallery-title">{service.title} in photos.</h2></div><p>Explore installation photos, from lighting to electrical equipment. Select a photo to take a closer look.</p></div>
+      <Gallery photos={service.photos} showEndCard={false} />
+    </section>}
 
     <section className="section shell detail-content">
       <div className="detail-main">
