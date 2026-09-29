@@ -82,7 +82,7 @@ export function SiteHeader() {
         <nav className="desktop-nav" aria-label="Main navigation">
           <div className="nav-services" ref={dropdownRef}>
             <Link href="/services" aria-current={pathname.startsWith('/services') ? 'page' : undefined}>Services</Link>
-            <button ref={disclosureRef} type="button" aria-label="Show services" aria-expanded={servicesOpen} aria-controls="service-popover" onClick={() => setServicesOpen(value => !value)}>⌄</button>
+            <button ref={disclosureRef} type="button" aria-label="Show services" aria-expanded={servicesOpen} aria-controls="service-popover" onClick={() => setServicesOpen(value => !value)}><svg aria-hidden="true" viewBox="0 0 16 16" fill="none"><path d="m3 6 5 5 5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
             {servicesOpen && <div id="service-popover" className="service-popover"><span className="eyebrow">Explore services</span>{services.map(service => <Link key={service.slug} href={`/services/${service.slug}`} onClick={() => setServicesOpen(false)}>{service.title}<span aria-hidden="true">↗</span></Link>)}</div>}
           </div>
           {primary.slice(1).map(item => <Link key={item.href} href={item.href} aria-current={pathname === item.href ? 'page' : undefined}>{item.label}</Link>)}

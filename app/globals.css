@@ -61,9 +61,12 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .brand b { color: var(--cyan); font-weight: 800; }
 .desktop-nav { display: flex; align-items: center; gap: 31px; margin-left: auto; font-size: .95rem; font-weight: 600; }
 .desktop-nav > a:hover, .desktop-nav [aria-current=page], .nav-services > a:hover { color: var(--cyan-light); }
-.nav-services { display: flex; align-items: center; gap: 4px; position: relative; }
-.nav-services > button { border: 0; background: none; color: white; padding: 8px; line-height: 1; font-size: 1.2rem; }
+.nav-services { display: flex; align-items: center; position: relative; }
+.nav-services > a { display: inline-flex; align-items: center; min-height: 40px; }
+.nav-services > button { display: inline-flex; align-items: center; justify-content: center; width: 32px; min-height: 40px; padding: 0; border: 0; background: none; color: white; }
+.nav-services > button svg { display: block; width: 14px; height: 14px; transition: transform .2s; }
 .nav-services > button[aria-expanded=true] { color: var(--cyan-light); }
+.nav-services > button[aria-expanded=true] svg { transform: rotate(180deg); }
 .service-popover { position: absolute; top: calc(100% + 18px); right: -24px; width: min(340px, 90vw); padding: 18px 22px; background: var(--navy); box-shadow: 0 16px 38px #07152445; border: 1px solid #3b5d72; }
 .service-popover .eyebrow { color: var(--cyan-light); margin: 4px 0 12px; }
 .service-popover a { display: flex; justify-content: space-between; gap: 20px; padding: 12px 0; border-top: 1px solid #3d5870; color: white; font-size: .96rem; }
