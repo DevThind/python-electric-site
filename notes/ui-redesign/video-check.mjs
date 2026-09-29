@@ -52,6 +52,24 @@ for (const device of ['iPhone 13', 'Pixel 7']) {
   assert(bounds.height >= 44 && bounds.y >= actions.y + actions.height, 'Mobile control must be touch-sized and clear of the quote buttons');
   await mobile.getByRole('button', { name: 'Pause background video' }).click();
   await mobile.waitForFunction(() => document.querySelector('video').paused);
+  for (const [time, scene] of [[1, 'opening'], [4, 'opening-late'], [5.5, 'charger'], [10.5, 'stairs'], [14.9, 'loop']]) {
+    await mobile.locator('video').evaluate((video, time) => new Promise(resolve => { video.addEventListener('seeked', resolve, { once: true }); video.currentTime = time; }), time);
+    const opening = scene.startsWith('opening') || scene === 'loop';
+    await mobile.waitForFunction(opening => document.querySelector('video').dataset.scene === (opening ? 'opening' : 'detail'), opening);
+    const framing = await mobile.locator('video').evaluate(video => {
+      const bounds = video.getBoundingClientRect();
+      const position = getComputedStyle(video).objectPosition;
+      const scale = Math.max(bounds.width / video.videoWidth, bounds.height / video.videoHeight);
+      const left = (video.videoWidth * scale - bounds.width) * Number.parseFloat(position) / 100 / scale;
+      return { left, right: left + bounds.width / scale, sourceWidth: video.videoWidth, position, posterPosition: getComputedStyle(video.closest('.home-hero')).backgroundPosition };
+    });
+    if (opening) {
+      assert(framing.left < framing.sourceWidth * .21 && framing.right > framing.sourceWidth * .4, 'Both electricians must remain in the mobile opening crop');
+      assert.equal(framing.position, framing.posterPosition, 'Opening and poster must use the same crop');
+    } else assert.equal(framing.position, '50% 50%', 'Charger and lighting scenes must retain their centered crop');
+    await mobile.screenshot({ path: `notes/ui-redesign/after-video-${scene}-${device.toLowerCase().replaceAll(' ', '-')}.png` });
+  }
+  console.log(device, 'opening keeps both electricians in frame; poster matches; later scenes remain centered');
   await mobile.evaluate(() => scrollTo(0, document.querySelector('.home-hero').offsetHeight + 200));
   await mobile.evaluate(() => scrollTo(0, 0));
   assert(await mobile.locator('video').evaluate(video => video.paused));

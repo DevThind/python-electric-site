@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 
 const base = process.env.SITE_URL || 'http://127.0.0.1:3100';
 const output = resolve('notes/ui-redesign');
-const routes = ['/', '/services', '/services/residential-electrical', '/services/commercial-electrical', '/services/ev-chargers', '/services/electrical-restoration', '/work', '/about', '/contact', '/privacy'];
+const routes = process.env.AUDIT_ROUTES?.split(',').filter(Boolean) || ['/', '/services', '/services/residential-electrical', '/services/commercial-electrical', '/services/ev-chargers', '/services/electrical-restoration', '/work', '/about', '/contact', '/privacy'];
 const browser = await chromium.launch({ executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', headless: true });
 const failures = [];
 const links = new Set();
@@ -25,6 +25,7 @@ try {
         overflow: document.documentElement.scrollWidth > innerWidth,
         clipped: [...document.querySelectorAll('h1,h2,h3')].filter(el => el.scrollWidth > el.clientWidth + 1).map(el => el.textContent),
         broken: [...document.images].filter(image => !image.naturalWidth).map(image => image.src),
+        cardsWithoutPhotos: [...document.querySelectorAll('.service-card')].filter(card => !card.querySelector('.service-card-photo img')).map(card => card.querySelector('h2')?.textContent),
         headings: document.querySelectorAll('h1').length,
         canonical: document.querySelector('link[rel="canonical"]')?.href,
         description: document.querySelector('meta[name="description"]')?.content,
@@ -33,7 +34,7 @@ try {
         links: [...document.querySelectorAll('a[href]')].map(el => el.href).filter(href => new URL(href).origin === location.origin),
       }));
       for (const href of state.links) links.add(href);
-      if (response.status() !== 200 || state.overflow || state.clipped.length || state.broken.length || state.headings !== 1 || state.duplicateIds.length || !state.description || !state.robots.includes('noindex') || state.canonical !== `https://www.pythonelectric.ca${route}`) failures.push(`${route} ${width}: ${JSON.stringify(state)}`);
+      if (response.status() !== 200 || state.overflow || state.clipped.length || state.broken.length || state.cardsWithoutPhotos.length || state.headings !== 1 || state.duplicateIds.length || !state.description || !state.robots.includes('noindex') || state.canonical !== `https://www.pythonelectric.ca${route}`) failures.push(`${route} ${width}: ${JSON.stringify(state)}`);
       let violations = [];
       if ([390, 1440].includes(width)) {
         await page.addScriptTag({ path: resolve('node_modules/axe-core/axe.min.js') });
@@ -82,7 +83,8 @@ try {
   await page.close();
   await writeFile(resolve(output, 'site-audit-results.json'), JSON.stringify({ records, internalLinks: links.size, failures }, null, 2));
   assert.deepEqual(failures, []);
-  console.log(`Full site audit passed: ${records.length} responsive page checks, 20 page accessibility scans, service galleries, ${links.size} internal links, sitemap, and 404 cases.`);
+  const accessibilityScans = records.filter(record => [390, 1440].includes(record.width)).length;
+  console.log(`Site audit passed: ${records.length} responsive page checks, ${accessibilityScans} page accessibility scans, service galleries, ${links.size} internal links, sitemap, and 404 cases.`);
 } finally {
   await browser.close();
 }

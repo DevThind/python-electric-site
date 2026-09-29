@@ -21,7 +21,7 @@ export default function ServicesPage() {
     <section className="services-page-section shell">
       <div className="services-page-grid">{services.map((service) => <Link className="service-card" href={'/services/' + service.slug} key={service.slug}>
         <span className="service-card-top"><span>{service.label}</span><span aria-hidden="true">↗</span></span>
-        {service.photos && service.image && <div className="service-card-photo"><Image src={service.image} alt={service.imageAlt || ''} fill sizes="(max-width: 520px) 100vw, 50vw" /></div>}
+        {service.image && <div className="service-card-photo"><Image src={service.image} alt={service.imageAlt || ''} fill sizes="(max-width: 520px) 100vw, 50vw" /></div>}
         <div><h2>{service.title}</h2><p>{service.short}</p></div>
         <span className="service-card-bottom">Explore service <span aria-hidden="true">↗</span></span>
       </Link>)}</div>
