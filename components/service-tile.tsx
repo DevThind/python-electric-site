@@ -12,7 +12,7 @@ const tileImages: Record<string, string> = {
 export function ServiceTile({ service, headingLevel = 3 }: { service: Service; headingLevel?: 2 | 3 }) {
   const Heading = headingLevel === 2 ? 'h2' : 'h3';
 
-  return <Link className="service-tile" href={`/services/${service.slug}`}>
+  return <Link className="service-tile" data-service={service.slug} href={`/services/${service.slug}`}>
     <Image
       className="service-tile-image"
       src={tileImages[service.slug] || service.image || ''}

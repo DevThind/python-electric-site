@@ -120,6 +120,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .service-tile { position: relative; display: flex; flex-direction: column; justify-content: flex-end; width: 100%; min-width: 0; aspect-ratio: 5 / 3; min-height: 220px; overflow: hidden; isolation: isolate; padding: clamp(20px, 2.4vw, 38px); color: white; background: var(--navy); }
 .service-tile::after { position: absolute; z-index: -1; inset: 0; content: ''; background: linear-gradient(180deg, #06162524 0%, #06162517 40%, #061625d6 100%); }
 .service-tile-image { z-index: -2; object-fit: cover; transition: transform .4s ease; }
+.service-tile[data-service="residential-electrical"] .service-tile-image { object-position: center 30%; }
+.service-tile[data-service="commercial-electrical"] .service-tile-image { object-position: center 58%; }
 .service-tile:hover .service-tile-image { transform: scale(1.045); }
 .service-tile-footer { display: grid; grid-template-columns: minmax(0, 1fr) clamp(44px, 4vw, 64px); align-items: center; gap: 12px; width: 100%; }
 .service-tile-title { margin: 0; color: white; font-family: var(--font-dm-sans), Arial, sans-serif; font-size: clamp(1.15rem, 1.6vw, 1.8rem); font-weight: 650; letter-spacing: .01em; line-height: 1.2; text-transform: uppercase; text-wrap: balance; }
