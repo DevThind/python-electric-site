@@ -18,7 +18,7 @@ export function ServiceTile({ service, headingLevel = 3 }: { service: Service; h
       src={tileImages[service.slug] || service.image || ''}
       alt=""
       fill
-      sizes="(max-width: 700px) 100vw, (max-width: 1400px) 45vw, 400px"
+      sizes="(max-width: 700px) calc(100vw - 24px), (max-width: 1850px) 48vw, 900px"
     />
     <div className="service-tile-footer">
       <Heading className="service-tile-title">{service.title}</Heading>
