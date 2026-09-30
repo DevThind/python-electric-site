@@ -115,8 +115,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .home-services .section-heading { display: flex; flex-direction: column; align-items: center; gap: 16px; max-width: 1000px; margin: 0 auto 36px; text-align: center; }
 .home-services .section-heading h2 { font-size: clamp(2rem, 3.2vw, 3.4rem); letter-spacing: -.02em; line-height: 1.15; text-wrap: balance; }
 .home-services .section-heading p { max-width: 720px; font-size: clamp(1rem, 1.05vw, 1.2rem); text-wrap: pretty; }
-.home-service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2vw, 32px); max-width: 1380px; margin-inline: auto; }
-.service-tile { position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 100%; min-width: 0; aspect-ratio: 1.13; min-height: 300px; overflow: hidden; isolation: isolate; padding: clamp(24px, 2.4vw, 38px); color: white; background: var(--navy); }
+.home-service-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 900px; margin-inline: auto; }
+.service-tile { position: relative; display: flex; flex-direction: column; align-items: flex-start; width: 100%; min-width: 0; aspect-ratio: 1.13; min-height: 280px; overflow: hidden; isolation: isolate; padding: clamp(24px, 2.4vw, 38px); color: white; background: var(--navy); }
 .service-tile::after { position: absolute; z-index: -1; inset: 0; content: ''; background: linear-gradient(180deg, #061625a8 0%, #06162533 42%, #06162545 100%); transition: background-color .25s; }
 .service-tile-image { z-index: -2; object-fit: cover; transition: transform .4s ease; }
 .service-tile:hover .service-tile-image { transform: scale(1.045); }
@@ -169,7 +169,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .page-hero h1 { max-width: 780px; font-size: clamp(3rem, 5vw, 5rem); }
 .page-hero p { max-width: 480px; color: var(--muted); font-size: 1.1rem; }
 .services-page-section { padding-block: 46px 76px; }
-.services-page-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(18px, 2vw, 32px); }
+.services-page-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 900px; margin-inline: auto; }
 .services-choice-note { margin-top: 20px; color: var(--muted); }
 .services-note { background: var(--soft); padding-block: 64px; }
 .services-note-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9%; align-items: center; }
@@ -353,7 +353,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .section-heading, .closing-inner { display: block; }
   .section-heading > p, .section-heading > div:last-child p { margin-top: 12px; }
   .home-services .section-heading > p { margin-top: 0; }
-  .home-service-grid, .services-page-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .home-service-grid, .services-page-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; max-width: 460px; }
   .service-tile { aspect-ratio: 1.13; padding: 24px; }
   .service-tile-title { font-size: clamp(1.75rem, 7vw, 2.4rem); }
   .home-intro-grid, .faq-layout, .page-hero-grid, .services-note-grid, .about-page, .service-faq { grid-template-columns: 1fr; gap: 25px; }
