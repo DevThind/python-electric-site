@@ -20,7 +20,9 @@ export function ServiceTile({ service, headingLevel = 3 }: { service: Service; h
       fill
       sizes="(max-width: 700px) 100vw, (max-width: 1400px) 45vw, 400px"
     />
-    <Heading className="service-tile-title">{service.title}</Heading>
-    <span className="service-tile-arrow" aria-hidden="true">→</span>
+    <div className="service-tile-footer">
+      <Heading className="service-tile-title">{service.title}</Heading>
+      <span className="service-tile-arrow" aria-hidden="true">→</span>
+    </div>
   </Link>;
 }
