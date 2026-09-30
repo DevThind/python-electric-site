@@ -1,9 +1,18 @@
 import Image from 'next/image';
 import Link from 'next/link';
+import localFont from 'next/font/local';
 import { HeroVideo } from '@/components/hero-video';
 import { ClosingCta } from '@/components/ui';
 import { ServiceAreas } from '@/components/service-areas';
 import { services, site } from '@/lib/content';
+
+const heroFont = localFont({
+  src: './fonts/inter-latin.woff2',
+  weight: '100 900',
+  variable: '--font-inter',
+  display: 'swap',
+  adjustFontFallback: 'Arial',
+});
 
 const serviceImages: Record<string, string> = {
   'residential-electrical': '/images/07_house_exterior_lighting.jpg',
@@ -24,7 +33,7 @@ export default function Home() {
       <HeroVideo />
       <div className="home-hero-shade" />
       <div className="shell home-hero-content">
-        <h1><span className="hero-title-lead">From first plans</span>{' '}<span className="hero-title-end">to final switch</span></h1>
+        <h1 className={heroFont.variable}><span className="hero-title-lead">From first plans</span>{' '}<span className="hero-title-end">to final switch</span></h1>
         <p>Professional electrical solutions for homes, businesses, and restoration projects — built on quality workmanship, responsive service, and safety you can rely on.</p>
         <div className="hero-actions"><Link className="button button-primary" href="/contact">Request a quote <span aria-hidden="true">↗</span></Link><Link className="button button-ghost" href="/services">Explore services <span aria-hidden="true">↗</span></Link></div>
         <a className="hero-emergency-link" href={site.emergencyPhoneHref}>24-hour emergency electrical service: call <strong>{site.emergencyPhone}</strong></a>
