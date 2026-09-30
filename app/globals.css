@@ -99,9 +99,10 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: clamp(12px, 1vw, 18px); margin-top: clamp(30px, 2.6vw, 49px); }
 .hero-actions .button { min-width: clamp(200px, 16vw, 300px); min-height: clamp(52px, 4.2vw, 80px); font-size: clamp(.96rem, 1.25vw, 1.5rem); padding-inline: clamp(20px, 1.6vw, 30px); }
 .hero-actions .button span, .is-home .header-quote span { font-size: 1.1em; }
-.hero-emergency-link { margin-top: clamp(20px, 2vw, 34px); color: white; font-size: clamp(.95rem, 1.1vw, 1.15rem); font-weight: 500; text-decoration: underline; text-underline-offset: 5px; }
+.hero-emergency { display: flex; flex-wrap: wrap; justify-content: center; gap: .35em; margin-top: clamp(20px, 2vw, 34px); font-size: clamp(.95rem, 1.1vw, 1.15rem); font-weight: 500; }
+.hero-emergency-number { display: inline-flex; gap: .35em; white-space: nowrap; }
+.hero-emergency-link { color: white; font-weight: 750; text-decoration: underline; text-underline-offset: 5px; }
 .hero-emergency-link:hover { color: var(--cyan-light); }
-.hero-emergency-link strong { font-weight: 750; white-space: nowrap; }
 .button-ghost { border-color: #d1e4ec; color: white; background: #07172855; }
 .button-ghost:hover { background: white; color: var(--navy); }
 .hero-video-control { position: absolute; z-index: 2; right: max(32px, calc((100vw - 1200px)/2)); bottom: 26px; border: 1px solid #d1e4ec88; background: #071728bb; color: white; padding: 8px 12px; border-radius: 3px; font-size: .82rem; font-weight: 600; }
@@ -191,6 +192,9 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .detail-hero-bullets li + li { margin-top: .45em; }
 .detail-hero-bullets li::marker { color: var(--cyan-light); }
 .detail-hero .button { margin-top: 25px; }
+.emergency-action-list { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
+.detail-hero .emergency-action-list { margin-top: 25px; }
+.detail-hero .emergency-action-list .button { margin-top: 0; }
 .detail-photo { position: relative; height: 420px; overflow: hidden; background: #29465b; }
 .detail-photo img { object-fit: cover; }
 .detail-content { display: grid; grid-template-columns: minmax(0, 1fr) 330px; gap: 8%; }
@@ -209,6 +213,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .detail-guidance h3 { margin: 10px 0; font-size: 1.5rem; }
 .detail-guidance p { color: var(--muted); }
 .detail-guidance .text-link { margin-top: 22px; }
+.detail-guidance .emergency-action-list { flex-direction: column; align-items: flex-start; gap: 10px; margin-top: 22px; }
+.detail-guidance .emergency-action-list .text-link { margin-top: 0; }
 .service-faq { display: grid; grid-template-columns: .72fr 1fr; gap: 10%; padding-top: 0; }
 .service-faq h2 { margin: 10px 0; }
 .service-faq-intro p { color: var(--muted); }
@@ -217,6 +223,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .detail-next h2 { margin: 10px 0; font-size: clamp(1.9rem, 2.8vw, 2.8rem); }
 .detail-next p { max-width: 640px; color: var(--muted); }
 .detail-next .button { flex: none; }
+.detail-next .emergency-action-list { justify-content: flex-end; }
 .related { padding-block: 50px 65px; }
 .related > div { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 18px; }
 .related a { display: flex; justify-content: space-between; gap: 14px; padding: 15px 0; border-top: 1px solid var(--line); font-weight: 700; }
@@ -254,6 +261,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .contact-emergency { grid-column: 1 / -1; display: flex; justify-content: space-between; align-items: center; gap: 24px; padding: clamp(22px, 3vw, 34px); background: var(--navy); color: white; }
 .contact-emergency .eyebrow { color: var(--cyan-light); }
 .contact-emergency p { margin-top: 6px; color: white; font-size: 1.15rem; }
+.contact-emergency-actions { display: grid; gap: 10px; }
 .contact-emergency .button { flex: none; }
 .contact-aside { padding-top: 22px; }
 .contact-aside h2 { margin: 10px 0 15px; font-size: clamp(1.8rem, 2.5vw, 2.5rem); }
@@ -349,7 +357,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .hero-video-control { right: 18px; bottom: 14px; min-height: 44px; }
   .home-hero h1 { font-size: clamp(2.5rem, 9vw, 4.25rem); }
   .home-hero p { font-size: 1.05rem; }
-  .hero-emergency-link { max-width: 300px; line-height: 1.5; }
+  .hero-emergency { max-width: 340px; line-height: 1.5; }
   .hero-actions .button { min-width: 200px; }
   .section-heading, .closing-inner { display: block; }
   .section-heading > p, .section-heading > div:last-child p { margin-top: 12px; }
@@ -380,6 +388,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .service-faq { padding-top: 0; }
   .detail-next-inner { display: block; }
   .detail-next .button { margin-top: 20px; }
+  .detail-next .emergency-action-list { justify-content: flex-start; margin-top: 20px; }
+  .detail-next .emergency-action-list .button { margin-top: 0; }
   .related > div { grid-template-columns: 1fr; gap: 0; }
   .about-page { padding-block: 50px 70px; }
   .about-page .photo-frame { height: 420px; }

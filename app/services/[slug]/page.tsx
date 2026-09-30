@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 function ServiceAction({ service, className }: { service: Service; className: string }) {
   const arrow = <span aria-hidden="true">↗</span>;
   return service.emergency
-    ? <a className={className} href={site.emergencyPhoneHref}>Call {site.emergencyPhone} {arrow}</a>
+    ? <div className="emergency-action-list">{site.emergencyPhones.map(phone => <a className={className} href={phone.href} key={phone.href}>Call {phone.display} {arrow}</a>)}</div>
     : <Link className={className} href={quoteHref(service.slug)}>Request a quote {arrow}</Link>;
 }
 

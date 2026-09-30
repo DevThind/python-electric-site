@@ -28,7 +28,7 @@ export default function Home() {
         <h1 className={heroFont.variable}><span className="hero-title-lead">From First Plans to</span>{' '}<span className="hero-title-end">Final Switch</span></h1>
         <p>Professional electrical solutions for homes, businesses, and restoration projects — built on quality workmanship, responsive service, and safety you can rely on.</p>
         <div className="hero-actions"><Link className="button button-primary" href="/contact">Request a quote <span aria-hidden="true">↗</span></Link><Link className="button button-ghost" href="/services">Explore services <span aria-hidden="true">↗</span></Link></div>
-        <a className="hero-emergency-link" href={site.emergencyPhoneHref}>24-hour emergency electrical service: call <strong>{site.emergencyPhone}</strong></a>
+        <div className="hero-emergency"><span>24-hour emergency electrical service: call</span>{site.emergencyPhones.map((phone, index) => <span className="hero-emergency-number" key={phone.href}>{index > 0 && <span>or</span>}<a className="hero-emergency-link" href={phone.href}>{phone.display}</a></span>)}</div>
       </div>
     </section>
     <section className="home-intro section" aria-labelledby="home-intro-title">

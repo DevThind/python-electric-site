@@ -6,8 +6,10 @@ export const site = {
   serviceAreas: ['Metro Vancouver', 'Lower Mainland', 'Vancouver Island', 'BC Interior', 'Squamish & Whistler'],
   instagram: 'https://www.instagram.com/python_electric?stkn=MTFuMzU3a2duazA2aw==',
   phone: null as string | null,
-  emergencyPhone: '+1 778-237-7832',
-  emergencyPhoneHref: 'tel:+17782377832',
+  emergencyPhones: [
+    { display: '+1 778-237-7832', href: 'tel:+17782377832' },
+    { display: '+1 (604) 442-4992', href: 'tel:+16044424992' },
+  ],
   email: 'Pythonelectric07@gmail.com',
   licenceNumber: 'LEL00004146',
 } as const;
@@ -107,7 +109,7 @@ export const services: Service[] = [
     factors: ['Where the issue is and what you have observed', 'Whether power is out across the property or in a specific area', 'The property address, site access, and any active damage'],
     guidance: 'Call with the property address and a brief description of the issue. Let us know whether power is on, which areas or equipment are affected, and how to access the site.',
     questions: [
-      { question: 'How do I request emergency electrical service?', answer: 'Call our 24-hour emergency line at +1 778-237-7832. Calling is the direct way to discuss an urgent issue.' },
+      { question: 'How do I request emergency electrical service?', answer: 'Call our 24-hour emergency line at +1 778-237-7832 or +1 (604) 442-4992. Calling is the direct way to discuss an urgent issue.' },
       { question: 'Can I call outside regular business hours?', answer: 'Yes. The emergency line is available 24 hours.' },
       { question: 'What details should I have ready?', answer: 'Your property address, the affected area, whether power is on, and a short description of what happened are useful starting points.' },
     ],
