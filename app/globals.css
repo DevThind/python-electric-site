@@ -79,7 +79,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .mobile-panel-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 30px; }
 .mobile-close, .lightbox-close { border: 0; background: transparent; color: inherit; font-size: 2rem; line-height: 1; }
 .mobile-main-link { display: flex; align-items: baseline; gap: 17px; padding: 13px 0; border-top: 1px solid #39566b; font-size: clamp(1.45rem, 5vw, 2rem); font-weight: 700; line-height: 1.2; }
-.mobile-main-link small { color: var(--cyan-light); font-size: .76rem; font-weight: 700; }
 .mobile-main-link > span { margin-left: auto; font-weight: 400; }
 .mobile-service-list { display: grid; gap: 8px; padding: 24px 0 30px; }
 .mobile-service-list .eyebrow { color: var(--cyan-light); margin-bottom: 4px; }

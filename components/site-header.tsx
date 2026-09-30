@@ -94,7 +94,7 @@ export function SiteHeader() {
     {open && createPortal(<div className="mobile-backdrop" onPointerDown={event => { if (event.target === event.currentTarget) closeMenu(); }}>
       <div className="mobile-panel" id="mobile-navigation" role="dialog" aria-modal="true" aria-label="Navigation">
         <div className="mobile-panel-top"><Brand /><button ref={closeRef} type="button" className="mobile-close" aria-label="Close menu" onClick={closeMenu}>×</button></div>
-        {primary.map((item, index) => <Link className="mobile-main-link" key={item.href} href={item.href} onClick={closeMenu}><small>0{index + 1}</small>{item.label}<span aria-hidden="true">↗</span></Link>)}
+        {primary.map((item) => <Link className="mobile-main-link" key={item.href} href={item.href} onClick={closeMenu}>{item.label}<span aria-hidden="true">↗</span></Link>)}
         <div className="mobile-service-list"><span className="eyebrow">Services</span>{services.map(service => <Link key={service.slug} href={`/services/${service.slug}`} onClick={closeMenu}>{service.title}</Link>)}</div>
         <Link className="button button-primary" href="/contact" onClick={closeMenu}>Request a quote <span aria-hidden="true">↗</span></Link>
       </div>
