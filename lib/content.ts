@@ -145,7 +145,13 @@ export const services: Service[] = [
     ],
     nextTitle: 'Tell us what happened and what comes next.',
     nextText: 'Describe the affected areas, current site access, and any restoration team already involved. The first conversation can begin before the full repair plan is settled.',
-    image: '/images/service-restoration.webp', imageAlt: 'Electrician testing an outlet in a home',
+    image: '/images/restoration-panel-inspection.png', imageAlt: 'Electrician inspecting a fire-damaged electrical panel',
+    photos: [
+      { id: 'restoration-fire-damaged-wiring', src: '/images/restoration-fire-damaged-wiring.png', alt: 'Electrician examining charred wiring and an open electrical box', caption: 'Fire-damaged wiring assessment', group: 'Fire damage', width: 1536, height: 1024 },
+      { id: 'restoration-water-damage-rewiring', src: '/images/restoration-water-damage-rewiring.png', alt: 'Electrician working on wiring in a room with exposed wall framing and water damage', caption: 'Wiring after water damage', group: 'Water damage', width: 1536, height: 1024 },
+      { id: 'restoration-fire-damage-rebuild', src: '/images/restoration-fire-damage-rebuild.png', alt: 'Electrician working beside charred framing during a property rebuild', caption: 'Electrical work during rebuilding', group: 'Fire damage', width: 1536, height: 1024 },
+      { id: 'restoration-overheated-outlet', src: '/images/restoration-overheated-outlet.png', alt: 'Overheated electrical outlet with a damaged plug and visible flames', caption: 'Damaged outlet', group: 'Electrical hazards', width: 1536, height: 1024 },
+    ],
   },
 ];
 

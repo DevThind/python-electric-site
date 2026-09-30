@@ -6,7 +6,7 @@ const tileImages: Record<string, string> = {
   'residential-electrical': '/images/07_house_exterior_lighting.png',
   'commercial-electrical': '/images/03_commercial_interior.png',
   'emergency-electrical': '/images/service-panels.webp',
-  'electrical-restoration': '/images/service-restoration.webp',
+  'electrical-restoration': '/images/restoration-panel-inspection.png',
 };
 
 export function ServiceTile({ service, headingLevel = 3 }: { service: Service; headingLevel?: 2 | 3 }) {

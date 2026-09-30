@@ -19,6 +19,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     service.short + ' Talk with Python Electric about ' + service.title.toLowerCase() + ' in Vancouver, BC.',
     '/services/' + slug,
     service.image,
+    slug === 'electrical-restoration' ? { width: 1536, height: 1024, alt: service.imageAlt || service.title } : undefined,
   );
 }
 
@@ -50,8 +51,8 @@ export default async function ServiceDetail({ params }: { params: Promise<{ slug
       </div>
     </section>
 
-    {service.photos && <section className="service-gallery section shell" aria-labelledby="service-gallery-title">
-      <div className="section-heading"><div><span className="eyebrow">Work on site</span><h2 id="service-gallery-title">{service.title} in photos.</h2></div><p>Explore installation photos, from lighting to electrical equipment. Select a photo to take a closer look.</p></div>
+    {service.photos && <section className={'service-gallery section shell' + (slug === 'electrical-restoration' ? ' service-gallery-landscape' : '')} aria-labelledby="service-gallery-title">
+      <div className="section-heading"><div><span className="eyebrow">{slug === 'electrical-restoration' ? 'Restoration scenarios' : 'Work on site'}</span><h2 id="service-gallery-title">{service.title} in photos.</h2></div><p>{slug === 'electrical-restoration' ? 'Illustrative views of electrical issues that can arise after fire or water damage. Select a photo to take a closer look.' : 'Explore installation photos, from lighting to electrical equipment. Select a photo to take a closer look.'}</p></div>
       <Gallery photos={service.photos} showEndCard={false} />
     </section>}
 
