@@ -1,9 +1,9 @@
-import Image from 'next/image';
 import Link from 'next/link';
 import localFont from 'next/font/local';
 import { HeroVideo } from '@/components/hero-video';
 import { ClosingCta } from '@/components/ui';
 import { ServiceAreas } from '@/components/service-areas';
+import { ServiceTile } from '@/components/service-tile';
 import { services, site } from '@/lib/content';
 
 const heroFont = localFont({
@@ -12,13 +12,6 @@ const heroFont = localFont({
   variable: '--font-mr-dafoe',
   display: 'swap',
 });
-
-const serviceImages: Record<string, string> = {
-  'residential-electrical': '/images/07_house_exterior_lighting.jpg',
-  'commercial-electrical': '/images/03_commercial_interior.jpg',
-  'emergency-electrical': '/images/service-panels.webp',
-  'electrical-restoration': '/images/service-restoration.webp',
-};
 
 const faqs = [
   ['Do I need plans before getting in touch?', 'No. A short description is enough to begin. Photos, plans, or equipment details can be shared during follow-up.'],
@@ -53,10 +46,7 @@ export default function Home() {
     </section>
     <section className="home-services section" id="services"><div className="shell">
       <div className="section-heading"><div><span className="eyebrow">What we do</span><h2>Electrical work, clearly scoped.</h2></div><p>Choose the closest starting point. We can discuss the details of your property and project from there.</p></div>
-      <div className="home-service-grid">{services.map((service, index) => <Link href={'/services/' + service.slug} className="home-service-card" key={service.slug}>
-        <div className="home-service-image"><Image src={serviceImages[service.slug]} alt="" fill sizes="(max-width: 700px) 100vw, 50vw" /></div>
-        <div className="home-service-body"><span className="card-number">0{index + 1} / {service.label}</span><h3>{service.title}</h3><p>{service.short}</p><span className="card-link">Explore service <span aria-hidden="true">↗</span></span></div>
-      </Link>)}</div>
+      <div className="home-service-grid">{services.map(service => <ServiceTile service={service} key={service.slug} />)}</div>
     </div></section>
     <section className="home-process section"><div className="shell"><div className="section-heading"><div><span className="eyebrow">Getting started</span><h2>A simple first step.</h2></div><p>Share enough to begin. The finer details can follow in conversation.</p></div><div className="process-grid"><div><span>01</span><h3>Describe the work</h3><p>Tell us what needs repair, installation, or planning.</p></div><div><span>02</span><h3>Set the context</h3><p>Include your area, property type, and any timing that matters.</p></div><div><span>03</span><h3>Continue the conversation</h3><p>Photos, plans, and equipment details can be shared during follow-up.</p></div></div></div></section>
     <ServiceAreas />

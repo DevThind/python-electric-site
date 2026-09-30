@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
 import { ClosingCta, Photo } from '@/components/ui';
 import { ServiceAreas } from '@/components/service-areas';
+import { ServiceTile } from '@/components/service-tile';
 import { photoById, services } from '@/lib/content';
 import { pageMetadata } from '@/lib/metadata';
 
@@ -19,12 +19,7 @@ export default function ServicesPage() {
       <div className="page-hero-grid"><h1>Electrical work for <em>what comes next.</em></h1><p>A repair, a renovation, an urgent electrical issue, or recovery after damage: choose the service closest to your project and see what details help us get started.</p></div>
     </section>
     <section className="services-page-section shell">
-      <div className="services-page-grid">{services.map((service) => <Link className="service-card" href={'/services/' + service.slug} key={service.slug}>
-        <span className="service-card-top"><span>{service.label}</span><span aria-hidden="true">↗</span></span>
-        {service.image && <div className="service-card-photo"><Image src={service.image} alt={service.imageAlt || ''} fill sizes="(max-width: 520px) 100vw, 50vw" /></div>}
-        <div><h2>{service.title}</h2><p>{service.short}</p></div>
-        <span className="service-card-bottom">Explore service <span aria-hidden="true">↗</span></span>
-      </Link>)}</div>
+      <div className="services-page-grid">{services.map(service => <ServiceTile service={service} headingLevel={2} key={service.slug} />)}</div>
       <p className="services-choice-note">Does your project cross more than one category? Choose the closest fit and tell us about the full scope in your enquiry.</p>
     </section>
     <section className="services-note"><div className="shell services-note-grid">
