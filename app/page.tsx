@@ -33,7 +33,7 @@ export default function Home() {
       <HeroVideo />
       <div className="home-hero-shade" />
       <div className="shell home-hero-content">
-        <h1 className={heroFont.variable}><span className="hero-title-lead">From first plans</span>{' '}<span className="hero-title-end">to final switch</span></h1>
+        <h1 className={heroFont.variable}><span className="hero-title-lead">From First Plans</span>{' '}<span className="hero-title-end">to Final Switch</span></h1>
         <p>Professional electrical solutions for homes, businesses, and restoration projects — built on quality workmanship, responsive service, and safety you can rely on.</p>
         <div className="hero-actions"><Link className="button button-primary" href="/contact">Request a quote <span aria-hidden="true">↗</span></Link><Link className="button button-ghost" href="/services">Explore services <span aria-hidden="true">↗</span></Link></div>
         <a className="hero-emergency-link" href={site.emergencyPhoneHref}>24-hour emergency electrical service: call <strong>{site.emergencyPhone}</strong></a>
