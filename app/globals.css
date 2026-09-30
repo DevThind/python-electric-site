@@ -93,10 +93,8 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .home-hero-video[data-scene=house] { object-position: 50% 46%; }
 .home-hero-shade { background: linear-gradient(180deg, #07172899 0%, #0717281a 28%, #07172840 100%), radial-gradient(ellipse at center, #07172899 0%, #07172880 48%, #07172826 100%); }
 .home-hero-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; padding-block: clamp(124px, 10.1vw, 190px) clamp(32px, 3vw, 56px); text-align: center; }
-.home-hero h1 { max-width: 1100px; font-family: var(--font-inter), Inter, Arial, sans-serif; font-size: clamp(3.25rem, 6.6vw, 7rem); font-weight: 600; letter-spacing: -.065em; line-height: 1.02; text-wrap: balance; }
-.home-hero h1 span { display: block; }
-.home-hero h1 .hero-title-lead { font-weight: 450; }
-.home-hero h1 .hero-title-end { color: var(--cyan-light); font-weight: 750; }
+.home-hero h1 { max-width: 1100px; font-family: var(--font-mr-dafoe), cursive; font-size: clamp(3.1rem, 5.2vw, 5.8rem); font-weight: 400; letter-spacing: 0; word-spacing: .13em; line-height: 1.25; text-wrap: balance; }
+.home-hero h1 .hero-title-end { display: inline-block; color: var(--cyan-light); white-space: nowrap; }
 .home-hero p { max-width: clamp(650px, 54vw, 1020px); margin-top: clamp(24px, 2.1vw, 40px); color: #e7f2f8; font-size: clamp(1.05rem, 1.5vw, 1.8rem); font-weight: 400; letter-spacing: normal; }
 .hero-actions { display: flex; justify-content: center; flex-wrap: wrap; gap: clamp(12px, 1vw, 18px); margin-top: clamp(30px, 2.6vw, 49px); }
 .hero-actions .button { min-width: clamp(200px, 16vw, 300px); min-height: clamp(52px, 4.2vw, 80px); font-size: clamp(.96rem, 1.25vw, 1.5rem); padding-inline: clamp(20px, 1.6vw, 30px); }
@@ -361,7 +359,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .home-hero-video[data-scene=house] { object-position: 25% 50%; }
   .home-hero-content { padding-block: clamp(116px, 17svh, 150px) clamp(76px, 9svh, 88px); }
   .hero-video-control { right: 18px; bottom: 14px; min-height: 44px; }
-  .home-hero h1 { font-size: clamp(2.45rem, 8vw, 4rem); letter-spacing: -.055em; }
+  .home-hero h1 { font-size: clamp(2.5rem, 9vw, 4.25rem); }
   .home-hero p { font-size: 1.05rem; }
   .hero-emergency-link { max-width: 300px; line-height: 1.5; }
   .hero-actions .button { min-width: 200px; }
