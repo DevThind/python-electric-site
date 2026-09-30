@@ -3,9 +3,11 @@ export const site = {
   origin: 'https://www.pythonelectric.ca',
   location: 'Vancouver, British Columbia',
   shortLocation: 'Vancouver, BC',
-  serviceAreas: ['Squamish & Whistler', 'BC Interior', 'Metro Vancouver', 'Fraser Valley', 'Vancouver Island'],
+  serviceAreas: ['Metro Vancouver', 'Lower Mainland', 'Vancouver Island', 'BC Interior', 'Squamish & Whistler'],
   instagram: 'https://www.instagram.com/python_electric?stkn=MTFuMzU3a2duazA2aw==',
   phone: null as string | null,
+  emergencyPhone: '+1 778-237-7832',
+  emergencyPhoneHref: 'tel:+17782377832',
   email: 'Pythonelectric07@gmail.com',
   licenceNumber: 'LEL00004146',
 } as const;
@@ -16,6 +18,7 @@ export type Service = {
   label: string;
   short: string;
   intro: string;
+  heroBullets?: string[];
   focusTitle: string;
   focusIntro: string;
   areas: { title: string; description: string }[];
@@ -24,6 +27,7 @@ export type Service = {
   questions: { question: string; answer: string }[];
   nextTitle: string;
   nextText: string;
+  emergency?: boolean;
   image?: string;
   imageAlt?: string;
   photos?: GalleryPhoto[];
@@ -89,32 +93,39 @@ export const services: Service[] = [
     ],
   },
   {
-    slug: 'ev-chargers', title: 'EV charger installation', label: 'For your vehicle',
-    short: 'Plan a charging setup around your parking space and electrical supply.',
-    intro: 'A good charging setup starts with more than the charger itself. Parking location, the route back to the electrical panel, and the property’s available capacity all shape the installation.',
-    focusTitle: 'Plan the route from panel to parking.',
-    focusIntro: 'Whether charging is for a home or a business, a few site details make the first conversation far more useful.',
+    slug: 'emergency-electrical', title: '24-Hour Emergency Services', label: 'Available 24 hours',
+    short: 'Emergency electrical help for urgent faults, power loss, and damaged equipment, day or night.',
+    intro: 'For urgent electrical problems at home or work, call our 24-hour emergency line. Tell us what is happening and where the property is so we can discuss the next steps.',
+    focusTitle: 'Help starts with a call.',
+    focusIntro: 'Electrical problems vary by property. These are common reasons to contact us for emergency service.',
     areas: [
-      { title: 'Charger location', description: 'Choose a practical position for the vehicle, charging cable, and day-to-day access, whether the space is indoors or outside.' },
-      { title: 'Wiring route', description: 'The distance and path from the electrical supply to the parking spot affect how the installation can be approached.' },
-      { title: 'Electrical capacity', description: 'The existing panel and other electrical loads need to be considered before the charging setup is confirmed.' },
-      { title: 'Equipment selection', description: 'If you have a charger in mind, its model and electrical requirements help define the scope. If you have not chosen one yet, start with your vehicle and parking setup.' },
+      { title: 'Unexpected power loss', description: 'Tell us whether the whole property or only certain rooms, circuits, or equipment have lost power.' },
+      { title: 'Urgent electrical faults', description: 'Describe repeated breaker trips, sparking, unusual smells, or equipment that has stopped working.' },
+      { title: 'Damage to wiring or equipment', description: 'Fire, water, storms, or impact can affect electrical components. Share what happened and which areas are involved.' },
+      { title: 'Business interruptions', description: 'For a workplace or commercial property, tell us which operations are affected and how we can access the site.' },
     ],
-    factors: ['The vehicle and charger model, if selected', 'Parking position and possible wiring route', 'Existing panel, service, and other electrical loads'],
-    guidance: 'Tell us where the vehicle parks, where the electrical panel is, and whether you have selected a charger. A photo of the parking area and panel can help start the discussion.',
+    factors: ['Where the issue is and what you have observed', 'Whether power is out across the property or in a specific area', 'The property address, site access, and any active damage'],
+    guidance: 'Call with the property address and a brief description of the issue. Let us know whether power is on, which areas or equipment are affected, and how to access the site.',
     questions: [
-      { question: 'Do I need to buy a charger before reaching out?', answer: 'No. If you already have a model in mind, include it. Otherwise, tell us about the vehicle, parking location, and the type of charging you are considering.' },
-      { question: 'Will my electrical panel need an upgrade?', answer: 'It is not possible to tell from the charger alone. Available capacity depends on the existing installation and other loads, so that question needs a property-specific review.' },
-      { question: 'What if the parking spot is far from the panel?', answer: 'The route still matters. Photos or a rough sketch of the panel and parking location can help identify the questions to address before installation.' },
+      { question: 'How do I request emergency electrical service?', answer: 'Call our 24-hour emergency line at +1 778-237-7832. Calling is the direct way to discuss an urgent issue.' },
+      { question: 'Can I call outside regular business hours?', answer: 'Yes. The emergency line is available 24 hours.' },
+      { question: 'What details should I have ready?', answer: 'Your property address, the affected area, whether power is on, and a short description of what happened are useful starting points.' },
     ],
-    nextTitle: 'Start with your parking setup.',
-    nextText: 'Share your vehicle or charger details and anything you know about the panel. A photo of the parking area can be shared during follow-up.',
-    image: '/images/service-ev-chargers.webp', imageAlt: 'Electric vehicle connected to a charger beside a home',
+    nextTitle: 'Need urgent electrical help?',
+    nextText: 'Call the 24-hour emergency line and tell us what is happening at the property.',
+    emergency: true,
+    image: '/images/service-panels.webp', imageAlt: 'Electrician reviewing an electrical panel',
   },
   {
     slug: 'electrical-restoration', title: 'Electrical restoration', label: 'After property damage',
     short: 'Assess and plan electrical repairs after damage to a property.',
     intro: 'After property damage, electrical questions may remain even when the visible cleanup has begun. Explain what happened, which areas were affected, and the current condition of the site.',
+    heroBullets: [
+      'Electrical safety and assessment after fire, flood, or property damage',
+      'Removal of damaged wiring, devices, and electrical components',
+      'Restoring power to the property safely and efficiently',
+      'Code-compliant restoration and replacement with required upgrades and modifications',
+    ],
     focusTitle: 'Understand what the damage may have affected.',
     focusIntro: 'Restoration work starts with the affected systems and the condition of the property, then fits into the wider repair plan.',
     areas: [
@@ -137,6 +148,7 @@ export const services: Service[] = [
 ];
 
 export const formerServiceDestinations: Record<string, string> = {
+  'ev-chargers': '/services',
   'construction-rewiring': '/services',
   'panels-circuits-upgrades': '/services',
   lighting: '/services',

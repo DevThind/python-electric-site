@@ -26,7 +26,7 @@ const path = require('node:path');
   await page.screenshot({ path: path.join(__dirname, 'menu-scrolled-700.png') });
   await page.keyboard.press('Escape');
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('http://localhost:3000/contact?service=ev-chargers');
+  await page.goto('http://localhost:3000/contact?service=emergency-electrical');
   await page.route('**/api/quote', route => route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: 'Audit: simulated delivery failure.' }) }));
   await page.locator('[name=name]').fill('Audit Test');
   await page.locator('[name=email]').fill('audit@example.invalid');

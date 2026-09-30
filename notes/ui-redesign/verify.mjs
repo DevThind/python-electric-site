@@ -35,7 +35,7 @@ async function inspect(route, width, height = 900, file) {
 }
 for (const width of widths) await inspect('/', width, 900, width === 1440 || width === 390 ? `after-home-${width}.png` : undefined);
 await inspect('/', 844, 390);
-for (const route of ['/services', '/services/ev-chargers', '/work', '/about', '/contact', '/privacy']) {
+for (const route of ['/services', '/services/emergency-electrical', '/work', '/about', '/contact', '/privacy']) {
   await inspect(route, 1440, 900, route === '/contact' ? 'after-contact-1440.png' : undefined);
   await inspect(route, 390, 844, route === '/contact' ? 'after-contact-390.png' : undefined);
 }
@@ -66,7 +66,7 @@ await desktop.goto(base);
 await desktop.getByText('Do I need plans before getting in touch?').click();
 if (!await desktop.getByText('Photos, plans, or equipment details can be shared during follow-up.').isVisible()) failures.push('FAQ disclosure');
 await desktop.getByRole('button', { name: 'Show services' }).click();
-if (!await desktop.getByRole('link', { name: 'EV charger installation' }).first().isVisible()) failures.push('dropdown disclosure');
+if (!await desktop.getByRole('link', { name: '24-Hour Emergency Services' }).first().isVisible()) failures.push('dropdown disclosure');
 const dropdownColors = await desktop.locator('.service-popover .eyebrow').evaluate(el => ({ color: getComputedStyle(el).color, background: getComputedStyle(el.parentElement).backgroundColor }));
 await desktop.keyboard.press('Escape');
 if (await desktop.locator('.service-popover').count()) failures.push('dropdown Escape');
@@ -88,18 +88,18 @@ if (await dialog.isVisible() || !await first.evaluate(el => el === document.acti
 await gallery.close();
 
 const contact = await browser.newPage({ viewport: { width: 390, height: 844 } });
-await contact.goto(base + '/contact?service=ev-chargers');
-if (await contact.locator('[name=service]').inputValue() !== 'ev-chargers') failures.push('service preselection');
+await contact.goto(base + '/contact?service=emergency-electrical');
+if (await contact.locator('[name=service]').inputValue() !== 'emergency-electrical') failures.push('service preselection');
 await contact.getByRole('button', { name: 'Send enquiry' }).click();
 if (!await contact.getByText('Enter your name.').isVisible()) failures.push('form validation');
 await contact.route('**/api/quote', route => route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ error: 'Mocked delivery failure.' }) }));
 await contact.locator('[name=name]').fill('Test Client');
 await contact.locator('[name=phone]').fill('604 555 0100');
 await contact.locator('[name=area]').fill('Vancouver');
-await contact.locator('[name=message]').fill('I would like to discuss a charger installation.');
+await contact.locator('[name=message]').fill('I would like to discuss an urgent electrical issue.');
 await contact.getByRole('button', { name: 'Send enquiry' }).click();
 await contact.getByText('Mocked delivery failure.').waitFor();
-if (await contact.locator('[name=message]').inputValue() !== 'I would like to discuss a charger installation.') failures.push('form lost values');
+if (await contact.locator('[name=message]').inputValue() !== 'I would like to discuss an urgent electrical issue.') failures.push('form lost values');
 const formTop = await contact.locator('.quote-form').evaluate(el => Math.round(el.getBoundingClientRect().top + scrollY));
 const inputSize = await contact.locator('[name=name]').evaluate(el => getComputedStyle(el).fontSize);
 console.log('form', { formTop, inputSize, error: await contact.locator('.form-error-banner').textContent() });

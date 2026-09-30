@@ -30,7 +30,7 @@ for (const width of [1920, 1440, 1024, 768, 390, 360, 320]) {
   if (width === 1440 || width === 390) await page.screenshot({ path: resolve(`notes/ui-redesign/after-manrope-top-${width}.png`) });
   await page.close();
 }
-for (const route of ['/services', '/services/residential-electrical', '/services/commercial-electrical', '/services/ev-chargers', '/services/electrical-restoration', '/work', '/about', '/contact', '/privacy']) {
+for (const route of ['/services', '/services/residential-electrical', '/services/commercial-electrical', '/services/emergency-electrical', '/services/electrical-restoration', '/work', '/about', '/contact', '/privacy']) {
   for (const width of [1440, 390, 320]) {
     const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
     const response = await page.goto(baseURL + route);

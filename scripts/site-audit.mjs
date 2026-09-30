@@ -5,7 +5,7 @@ import { resolve } from 'node:path';
 
 const base = process.env.SITE_URL || 'http://127.0.0.1:3100';
 const output = resolve('notes/ui-redesign');
-const routes = process.env.AUDIT_ROUTES?.split(',').filter(Boolean) || ['/', '/services', '/services/residential-electrical', '/services/commercial-electrical', '/services/ev-chargers', '/services/electrical-restoration', '/work', '/about', '/contact', '/privacy'];
+const routes = process.env.AUDIT_ROUTES?.split(',').filter(Boolean) || ['/', '/services', '/services/residential-electrical', '/services/commercial-electrical', '/services/emergency-electrical', '/services/electrical-restoration', '/work', '/about', '/contact', '/privacy'];
 const browser = await chromium.launch({ executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', headless: true });
 const failures = [];
 const links = new Set();

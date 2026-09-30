@@ -1,8 +1,8 @@
 import { chromium } from 'playwright';
 
 const base = process.env.SITE_URL || 'http://localhost:3001';
-const routes = ['/', '/services', '/work', '/about', '/contact', '/privacy', '/services/residential-electrical', '/services/commercial-electrical', '/services/ev-chargers', '/services/electrical-restoration'];
-const formerRoutes = ['/services/construction-rewiring', '/services/panels-circuits-upgrades', '/services/lighting', '/services/repairs-maintenance'];
+const routes = ['/', '/services', '/work', '/about', '/contact', '/privacy', '/services/residential-electrical', '/services/commercial-electrical', '/services/emergency-electrical', '/services/electrical-restoration'];
+const formerRoutes = ['/services/construction-rewiring', '/services/panels-circuits-upgrades', '/services/lighting', '/services/repairs-maintenance', '/services/ev-chargers'];
 const browser = await chromium.launch({ executablePath: 'C:\\Program Files (x86)\\Microsoft\\Edge\\Application\\msedge.exe', headless: true });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 const failures = [];

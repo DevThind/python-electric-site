@@ -33,7 +33,7 @@ for (const width of widths) {
   console.log(`home ${width}: ${JSON.stringify(state)}`);
   await page.close();
 }
-for (const [route, label, width] of [['/services', 'services-desktop', 1440], ['/services/ev-chargers', 'service-mobile', 390], ['/work', 'work-desktop', 1440], ['/work', 'work-mobile', 390], ['/about', 'about-mobile', 390], ['/contact', 'contact-desktop', 1440], ['/contact', 'contact-mobile', 390]]) {
+for (const [route, label, width] of [['/services', 'services-desktop', 1440], ['/services/emergency-electrical', 'service-mobile', 390], ['/work', 'work-desktop', 1440], ['/work', 'work-mobile', 390], ['/about', 'about-mobile', 390], ['/contact', 'contact-desktop', 1440], ['/contact', 'contact-mobile', 390]]) {
   const page = await browser.newPage({ viewport: { width, height: 900 }, deviceScaleFactor: 1 });
   page.on('pageerror', error => failures.push(`${label}: JS ${error.message}`));
   const response = await page.goto(`http://localhost:3000${route}`, { waitUntil: 'networkidle' });

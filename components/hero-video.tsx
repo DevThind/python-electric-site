@@ -7,7 +7,7 @@ export function HeroVideo() {
   const manualPause = useRef(false);
   const [eligible, setEligible] = useState(false);
   const [playing, setPlaying] = useState(false);
-  const [openingScene, setOpeningScene] = useState(true);
+  const [houseScene, setHouseScene] = useState(false);
   useEffect(() => {
     const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean; addEventListener?: (type: string, fn: () => void) => void; removeEventListener?: (type: string, fn: () => void) => void } }).connection;
@@ -31,8 +31,8 @@ export function HeroVideo() {
   }, [eligible]);
   if (!eligible) return null;
   return <>
-    <video ref={ref} className="home-hero-video" data-scene={openingScene ? 'opening' : 'detail'} poster="/images/python-electric-hero-poster.jpg?v=20260928" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={event => { const video = event.currentTarget; setOpeningScene(video.currentTime < 5 || video.currentTime >= video.duration - .5); }} disablePictureInPicture>
-      <source src="/videos/python-electric-hero.mp4?v=20260928-5s" type="video/mp4" />
+    <video ref={ref} className="home-hero-video" data-scene={houseScene ? 'house' : 'detail'} poster="/images/python-electric-hero-poster.jpg?v=20260930-stairs-first" autoPlay muted loop playsInline preload="metadata" aria-hidden="true" tabIndex={-1} onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onTimeUpdate={event => setHouseScene(event.currentTarget.currentTime >= 8.17 && event.currentTarget.currentTime < 12.17)} disablePictureInPicture>
+      <source src="/videos/python-electric-hero.mp4?v=20260930-stairs-first" type="video/mp4" />
     </video>
     <button className="hero-video-control" type="button" aria-label={playing ? 'Pause background video' : 'Play background video'} onClick={() => { manualPause.current = playing; if (playing) ref.current?.pause(); else void ref.current?.play().catch(() => setPlaying(false)); }}>{playing ? 'Pause video' : 'Play video'} <span aria-hidden="true">{playing ? 'Ⅱ' : '▶'}</span></button>
   </>;

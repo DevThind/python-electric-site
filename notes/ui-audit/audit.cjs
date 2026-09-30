@@ -6,7 +6,7 @@ const path = require('node:path');
   const out = __dirname;
   const browser = await chromium.launch({ executablePath: 'C:/Program Files (x86)/Microsoft/Edge/Application/msedge.exe', headless: true });
   const records = [];
-  const routes = [['/', 'home'], ['/services', 'services'], ['/services/ev-chargers', 'detail'], ['/work', 'work'], ['/about', 'about'], ['/contact', 'contact']];
+  const routes = [['/', 'home'], ['/services', 'services'], ['/services/emergency-electrical', 'detail'], ['/work', 'work'], ['/about', 'about'], ['/contact', 'contact']];
   for (const width of [1440, 390]) {
     const page = await browser.newPage({ viewport: { width, height: 900 }, reducedMotion: 'reduce' });
     const errors = [];
@@ -54,7 +54,7 @@ const path = require('node:path');
   await mobile.screenshot({ path: path.join(out, 'menu-scrolled-390.png') });
   await mobile.keyboard.press('Escape');
   console.log('menu escape', await mobile.getByRole('button', { name: 'Open menu' }).evaluate(e => e === document.activeElement));
-  await mobile.goto('http://localhost:3000/contact?service=ev-chargers');
+  await mobile.goto('http://localhost:3000/contact?service=emergency-electrical');
   console.log('service prefill', await mobile.locator('select[name=service]').inputValue());
   await mobile.getByRole('button', { name: /Send Request/ }).click();
   console.log('form validation', await mobile.evaluate(() => ({ focused: document.activeElement?.getAttribute('name'), errors: [...document.querySelectorAll('.field-error')].map(e => e.textContent) })));

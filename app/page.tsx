@@ -3,12 +3,12 @@ import Link from 'next/link';
 import { HeroVideo } from '@/components/hero-video';
 import { ClosingCta } from '@/components/ui';
 import { ServiceAreas } from '@/components/service-areas';
-import { services } from '@/lib/content';
+import { services, site } from '@/lib/content';
 
 const serviceImages: Record<string, string> = {
   'residential-electrical': '/images/07_house_exterior_lighting.jpg',
   'commercial-electrical': '/images/03_commercial_interior.jpg',
-  'ev-chargers': '/images/service-ev-chargers.webp',
+  'emergency-electrical': '/images/service-panels.webp',
   'electrical-restoration': '/images/service-restoration.webp',
 };
 
@@ -24,10 +24,10 @@ export default function Home() {
       <HeroVideo />
       <div className="home-hero-shade" />
       <div className="shell home-hero-content">
-        <span className="eyebrow hero-eyebrow">Vancouver, British Columbia</span>
-        <h1><span>Electrical services</span>{' '}<span>for Vancouver homes</span>{' '}<span>and businesses.</span></h1>
-        <p>From repairs and lighting to renovations, EV charging, and restoration, start with the electrical work your space needs.</p>
+        <h1><span className="hero-title-lead">From first plans</span>{' '}<span className="hero-title-end">to final switch</span></h1>
+        <p>Professional electrical solutions for homes, businesses, and restoration projects — built on quality workmanship, responsive service, and safety you can rely on.</p>
         <div className="hero-actions"><Link className="button button-primary" href="/contact">Request a quote <span aria-hidden="true">↗</span></Link><Link className="button button-ghost" href="/services">Explore services <span aria-hidden="true">↗</span></Link></div>
+        <a className="hero-emergency-link" href={site.emergencyPhoneHref}>24-hour emergency electrical service: call <strong>{site.emergencyPhone}</strong></a>
       </div>
     </section>
     <section className="home-intro section" aria-labelledby="home-intro-title">

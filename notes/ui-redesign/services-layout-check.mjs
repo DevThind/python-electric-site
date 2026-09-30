@@ -38,7 +38,7 @@ for (const width of phase === 'before' ? [1440, 390] : [1899, 1688, 1440, 1024, 
     if (width >= 1440) assert(layout.contentWidth / width >= .94, 'Services must use at least 94% of the wide viewport');
     assert(layout.cards.every(card => !card.clipped && card.bodySize >= 16));
     assert(Math.max(...layout.cards.map(card => card.height)) - Math.min(...layout.cards.map(card => card.height)) < 1);
-    assert.deepEqual(layout.cards.map(card => card.href), ['/services/residential-electrical', '/services/commercial-electrical', '/services/ev-chargers', '/services/electrical-restoration']);
+    assert.deepEqual(layout.cards.map(card => card.href), ['/services/residential-electrical', '/services/commercial-electrical', '/services/emergency-electrical', '/services/electrical-restoration']);
     for (let i = 0; i < 4; i++) {
       await page.locator('.home-service-card').nth(i).focus();
       assert(await page.locator('.home-service-card').nth(i).evaluate(el => document.activeElement === el && getComputedStyle(el).outlineStyle !== 'none'));
