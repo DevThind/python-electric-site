@@ -422,6 +422,7 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .footer-bottom span { display: block; }
 }
 @media (max-width: 390px) {
+  .service-tile-footer { gap: 6px; }
   .gallery-grid { grid-template-columns: 1fr; }
   .gallery-image { height: 360px; }
 }
