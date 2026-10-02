@@ -18,7 +18,7 @@ function load(path, overrides = {}) {
 const content = load('lib/content.ts');
 const { POST } = load('app/api/quote/route.ts', { '@/lib/content': content });
 const { isIndexable } = load('lib/indexing.ts');
-const keys = ['NODE_ENV', 'QUOTE_TEST_MODE', 'QUOTE_TO_EMAIL', 'QUOTE_FROM_EMAIL', 'RESEND_API_KEY', 'UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN', 'RATE_LIMIT_SECRET', 'PUBLIC_SITE_INDEXABLE', 'VERCEL_ENV'];
+const keys = ['NODE_ENV', 'QUOTE_TEST_MODE', 'QUOTE_TO_EMAIL', 'QUOTE_FROM_EMAIL', 'RESEND_API_KEY', 'PUBLIC_SITE_INDEXABLE', 'VERCEL_ENV'];
 const originalEnv = Object.fromEntries(keys.map(key => [key, process.env[key]]));
 const originalFetch = globalThis.fetch;
 const originalError = console.error;
@@ -28,8 +28,8 @@ function configure(extra = {}) {
   for (const key of keys) delete process.env[key];
   Object.assign(process.env, { NODE_ENV: 'production', QUOTE_TEST_MODE: '1', ...extra });
 }
-function configuredProviders() {
-  configure({ QUOTE_FROM_EMAIL: 'sender@example.net', RESEND_API_KEY: 'mock-key', UPSTASH_REDIS_REST_URL: 'https://redis.example.net/', UPSTASH_REDIS_REST_TOKEN: 'mock-token', RATE_LIMIT_SECRET: 'mock-secret' });
+function configuredEmail() {
+  configure({ QUOTE_FROM_EMAIL: 'sender@example.net', RESEND_API_KEY: 'mock-key' });
 }
 async function expect(raw, status, headers = {}) {
   const response = await POST(new Request('http://localhost/api/quote', { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: typeof raw === 'string' ? raw : JSON.stringify(raw) }));
@@ -56,40 +56,37 @@ try {
   configure({ NODE_ENV: 'development', QUOTE_TEST_MODE: '1' });
   assert.deepEqual(await expect(valid, 200), { accepted: true, mode: 'test' });
 
-  configuredProviders();
+  configuredEmail();
   let calls = [];
-  let redisResult = [{ result: 1 }, { result: 1 }];
-  let redisStatus = 200;
   let mailStatus = 200;
   globalThis.fetch = async (url, options) => {
     calls.push({ url, options, payload: JSON.parse(options.body) });
     assert(options.signal instanceof AbortSignal, 'Provider calls need a timeout signal');
-    return new Response(JSON.stringify(url.includes('redis.example') ? redisResult : { id: 'mock-email-id' }), { status: url.includes('redis.example') ? redisStatus : mailStatus });
+    return new Response(JSON.stringify({ id: 'mock-email-id' }), { status: mailStatus });
   };
   assert.deepEqual(await expect(valid, 200, { 'x-forwarded-for': '203.0.113.1, 203.0.113.2' }), { accepted: true, mode: 'real' });
-  assert.equal(calls.length, 2);
-  assert.equal(calls[0].url, 'https://redis.example.net/multi-exec');
-  assert.match(calls[0].payload[0][1], /^quote:[a-f0-9]{64}$/);
-  assert.deepEqual(calls[0].payload[1], ['EXPIRE', calls[0].payload[0][1], 3600, 'NX']);
-  assert.deepEqual(calls[1].payload.to, [content.site.email]);
-  assert.equal(calls[1].payload.reply_to, valid.email);
-  assert(calls[1].payload.text.includes('Residential electrical'));
-  calls = []; redisResult = [{ result: 5 }, { result: 0 }];
+  assert.equal(calls.length, 1);
+  assert.equal(calls[0].url, 'https://api.resend.com/emails');
+  assert.deepEqual(calls[0].payload.to, [content.site.email]);
+  assert.equal(calls[0].payload.reply_to, valid.email);
+  assert(calls[0].payload.text.includes('Residential electrical'));
+  calls = [];
   await expect({ ...valid, email: '', phone: '604 555 0100' }, 200);
-  assert(!('reply_to' in calls[1].payload));
-  calls = []; redisResult = [{ result: 6 }, { result: 0 }];
-  await expect(valid, 429); assert.equal(calls.length, 1);
-  for (const result of [{}, [{ result: 1.5 }, { result: 1 }], [{ result: 1 }, { result: 0 }], [{ result: 0 }, { result: 1 }], [{ error: 'Unavailable' }]]) {
-    redisResult = result; calls = []; await expect(valid, 502); assert.equal(calls.length, 1);
-  }
-  redisResult = [{ result: 1 }, { result: 1 }]; redisStatus = 503;
+  assert(!('reply_to' in calls[0].payload));
+  configuredEmail();
+  process.env.QUOTE_TO_EMAIL = 'alternate@example.net';
+  calls = [];
+  await expect(valid, 200);
+  assert.deepEqual(calls[0].payload.to, ['alternate@example.net']);
+  mailStatus = 503;
   await expect(valid, 502);
-  redisStatus = 200; mailStatus = 503;
-  await expect(valid, 502);
+  mailStatus = 200;
   globalThis.fetch = async () => { throw new DOMException('Synthetic provider timeout', 'TimeoutError'); };
   await expect(valid, 502);
-  configuredProviders(); delete process.env.RATE_LIMIT_SECRET;
-  globalThis.fetch = async () => { throw Error('Unexpected provider request with missing limiter configuration'); };
+  configuredEmail(); delete process.env.RESEND_API_KEY;
+  globalThis.fetch = async () => { throw Error('Unexpected provider request with missing mail configuration'); };
+  await expect(valid, 503);
+  configuredEmail(); delete process.env.QUOTE_FROM_EMAIL;
   await expect(valid, 503);
 
   for (const [node, indexable, vercel, expected] of [
@@ -100,7 +97,7 @@ try {
     configure({ NODE_ENV: node, PUBLIC_SITE_INDEXABLE: indexable, ...(vercel ? { VERCEL_ENV: vercel } : {}) });
     assert.equal(isIndexable(), expected); cases++;
   }
-  console.log(`${cases} quote API and indexing checks passed; all email and Redis calls were mocked.`);
+  console.log(`${cases} quote API and indexing checks passed; all email calls were mocked.`);
 } finally {
   globalThis.fetch = originalFetch;
   console.error = originalError;
