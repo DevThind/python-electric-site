@@ -46,25 +46,22 @@ Copy `.env.example` to `.env.local` and configure these server-side variables in
 | `QUOTE_TO_EMAIL` | Enquiry recipient; defaults to `Pythonelectric07@gmail.com` |
 | `QUOTE_FROM_EMAIL` | Sender on a domain verified in Resend |
 | `RESEND_API_KEY` | Resend API key |
-| `UPSTASH_REDIS_REST_URL` | Upstash Redis REST endpoint |
-| `UPSTASH_REDIS_REST_TOKEN` | Upstash standard REST token |
-| `RATE_LIMIT_SECRET` | Long random secret used to hash request address for the rate-limit key |
 | `PUBLIC_SITE_INDEXABLE` | `0` for preview; `1` only after launch review |
 
-The API validates input on the server, bounds request reads before applying the body-size limit, rejects a filled honeypot, and uses an atomic Upstash transaction for a five-request fixed one-hour limit per network address. The expiry is set on the first request and is not extended by retries. It calls Resend only after validation and rate limiting. Each provider call has a ten-second timeout. Any unavailable provider or missing configuration returns an error; the UI preserves entered values and requires an explicit acceptance response before displaying success. An accepted Resend API request still needs a real inbox receipt check before launch. Do not send a test to the client without their approval.
+The API validates input on the server, bounds request reads before applying the body-size limit, and rejects a filled honeypot. It calls Resend only after validation, with a ten-second timeout. An unavailable provider or missing configuration returns an error; the UI preserves entered values and requires an explicit acceptance response before displaying success. The form currently has no per-address rate limit, so spam protection is limited. An accepted Resend API request still needs a real inbox receipt check before launch. Do not send a test to the client without their approval.
 
-The website contact email and default enquiry recipient are `Pythonelectric07@gmail.com`. A `QUOTE_TO_EMAIL` environment variable can override the delivery recipient. The sender address, Resend API key, and Upstash rate-limit settings still need configuration before the form can send emails.
+The website contact email and default enquiry recipient are `Pythonelectric07@gmail.com`. A `QUOTE_TO_EMAIL` environment variable can override the delivery recipient. The sender address and Resend API key must be configured before the form can send emails.
 
-The `QUOTE_TEST_MODE=1` override only works under `next dev` and returns a clearly labelled local test acceptance. It does not send email or exercise Upstash/Resend. Production delivery remains unverified until the delivery credentials are supplied and inbox receipt is confirmed.
+The `QUOTE_TEST_MODE=1` override only works under `next dev` and returns a clearly labelled local test acceptance. It does not send email or exercise Resend. Production delivery remains unverified until the delivery credentials are supplied and inbox receipt is confirmed.
 
 ## Deployment
 
 1. Use a commercial-appropriate Vercel account or another host that runs Next.js server functions and image optimization. [Vercel states its Hobby plan is for non-commercial personal use](https://vercel.com/docs/plans/hobby); check the current Pro terms and account ownership before committing to hosting.
 2. Import the repository into the chosen host, set the server environment variables above, and deploy a protected preview with `PUBLIC_SITE_INDEXABLE=0`.
-3. Verify the final recipient and sender domain in Resend, configure Upstash Redis, then test invalid input, request limiting, provider failure, and one authorized real inbox receipt.
-4. Confirm copy, privacy, photos, logo, and contact details. Add `www.pythonelectric.ca` as the primary domain and configure an apex-to-www redirect; [Vercel documents this setup](https://vercel.com/docs/domains/working-with-domains/deploying-and-redirecting). Follow the host's displayed DNS records and verify HTTPS before switching indexing on. No DNS or publishing change has been made here.
+3. Verify the final recipient and sender domain in Resend, then test invalid input, provider failure, and one authorized real inbox receipt.
+4. Confirm copy, privacy, photos, logo, and contact details. `www.pythonelectric.ca` is connected as the primary domain with an apex-to-www redirect. Verify HTTPS before switching indexing on.
 
-External services for this implementation are a Next.js host, [Resend for enquiry mail](https://resend.com/pricing), and [Upstash Redis for durable limits](https://upstash.com/pricing/redis). Resend and Upstash list free tiers with usage limits and paid options; Vercel Pro has recurring billing and possible usage charges. Confirm current pricing, currency, taxes, expected volume, and ownership with the client before purchase. The website itself adds no analytics subscription.
+External services for this implementation are a Next.js host and [Resend for enquiry mail](https://resend.com/pricing). Resend lists a free tier with usage limits and paid options; Vercel Pro has recurring billing and possible usage charges. Confirm current pricing, currency, taxes, expected volume, and ownership with the client before purchase. The website itself adds no analytics subscription.
 
 ## Verification notes
 

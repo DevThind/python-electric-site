@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto';
 import { NextResponse } from 'next/server';
 import { services, site } from '@/lib/content';
 
@@ -17,22 +16,6 @@ function validate(input: Payload) {
   if (values.message.length < 10 || values.message.length > 3000) errors.message = 'Describe the project in 10 to 3000 characters.';
   if (values.website) errors.form = 'This request could not be accepted.';
   return { values, errors };
-}
-
-async function withinLimit(request: Request) {
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  const secret = process.env.RATE_LIMIT_SECRET;
-  if (!url || !token || !secret) return { ok: false, unconfigured: true };
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || request.headers.get('x-real-ip') || 'unknown';
-  const key = `quote:${createHash('sha256').update(`${secret}:${ip}`).digest('hex')}`;
-  const response = await fetch(`${url.replace(/\/$/, '')}/multi-exec`, { method: 'POST', headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' }, body: JSON.stringify([['INCR', key], ['EXPIRE', key, 3600, 'NX']]), cache: 'no-store', signal: AbortSignal.timeout(10000) });
-  if (!response.ok) throw new Error('Rate limit provider unavailable');
-  const result = await response.json() as Array<{ result?: number }>;
-  const count = Number(result?.[0]?.result);
-  const expirySet = result?.[1]?.result;
-  if (!Array.isArray(result) || !Number.isSafeInteger(count) || count < 1 || ![0, 1].includes(Number(expirySet)) || (count === 1 && Number(expirySet) !== 1)) throw new Error('Rate limit provider returned an invalid response');
-  return { ok: count <= 5, unconfigured: false };
 }
 
 export async function POST(request: Request) {
@@ -68,9 +51,6 @@ export async function POST(request: Request) {
   const to = process.env.QUOTE_TO_EMAIL || site.email, from = process.env.QUOTE_FROM_EMAIL, apiKey = process.env.RESEND_API_KEY;
   if (!to || !from || !apiKey) return NextResponse.json({ error: 'Enquiry delivery is not configured yet. Please try again later.' }, { status: 503 });
   try {
-    const limit = await withinLimit(request);
-    if (limit.unconfigured) return NextResponse.json({ error: 'Enquiry delivery is not configured yet. Please try again later.' }, { status: 503 });
-    if (!limit.ok) return NextResponse.json({ error: 'Too many requests from this connection. Please try again later.' }, { status: 429 });
     const service = services.find(s => s.slug === values.service)?.title || 'Not sure yet';
     const text = [`Name: ${values.name}`, `Email: ${values.email || 'Not supplied'}`, `Phone: ${values.phone || 'Not supplied'}`, `Service: ${service}`, `City or area: ${values.area}`, '', 'Project:', values.message].join('\n');
     const response = await fetch('https://api.resend.com/emails', { method: 'POST', headers: { Authorization: `Bearer ${apiKey}`, 'Content-Type': 'application/json' }, body: JSON.stringify({ from, to: [to], subject: `Python Electric enquiry: ${service}`, text, ...(values.email ? { reply_to: values.email } : {}) }), cache: 'no-store', signal: AbortSignal.timeout(10000) });
