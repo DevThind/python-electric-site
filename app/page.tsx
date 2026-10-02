@@ -7,9 +7,8 @@ import { ServiceTile } from '@/components/service-tile';
 import { services, site } from '@/lib/content';
 
 const heroFont = localFont({
-  src: './fonts/MrDafoe-Regular.ttf',
-  weight: '400',
-  variable: '--font-mr-dafoe',
+  src: './fonts/Oswald-wght.ttf',
+  weight: '200 700',
   display: 'swap',
 });
 
@@ -25,7 +24,7 @@ export default function Home() {
       <HeroVideo />
       <div className="home-hero-shade" />
       <div className="shell home-hero-content">
-        <h1 className={heroFont.variable}><span className="hero-title-lead">From First Plans to</span>{' '}<span className="hero-title-end">Final Switch</span></h1>
+        <h1 className={heroFont.className}><span className="hero-title-lead">From First Plans to</span>{' '}<span className="hero-title-end">Final Switch.</span></h1>
         <p>Professional electrical solutions for homes, businesses, and restoration projects — built on quality workmanship, responsive service, and safety you can rely on.</p>
         <div className="hero-actions"><Link className="button button-primary" href="/contact">Request a quote <span aria-hidden="true">↗</span></Link><Link className="button button-ghost" href="/services">Explore services <span aria-hidden="true">↗</span></Link></div>
         <div className="hero-emergency"><span>24-hour emergency electrical service: call</span>{site.emergencyPhones.map((phone, index) => <span className="hero-emergency-number" key={phone.href}>{index > 0 && <span>or</span>}<a className="hero-emergency-link" href={phone.href}>{phone.display}</a></span>)}</div>
