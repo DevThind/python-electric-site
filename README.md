@@ -65,6 +65,8 @@ External services for this implementation are a Next.js host and [Resend for enq
 
 ## Verification notes
 
+Vercel Web Analytics is installed through `@vercel/analytics/next` in the root layout to count visitors and page views across all routes. Enable Web Analytics for the Vercel project, deploy these changes, then visit the live site to begin collecting data. The privacy page describes this analytics use. No custom events or enquiry form contents are sent to analytics.
+
 The local build, type check, lint check, and browser checks are recorded in the handover and `notes/application-audit.md`. Run `node scripts/quote-api-check.mjs` for isolated API and indexing checks; every delivery-provider call is mocked. With a local production server running at port 3100, run `node scripts/site-audit.mjs` for the complete responsive, accessibility, image, link, and route audit. Set `SITE_URL` to use another local server. The browser scripts use a locally installed Microsoft Edge executable on Windows and axe-core from the dependency tree.
 
 Current before/after previews are in `notes/ui-redesign/`; `notes/ui-audit/` holds the original review. Audit screenshots, generated results, and video editing backups stay local and are ignored by Git; the website's required public video and poster are versioned. A local synthetic browser run is not a Lighthouse or field performance result. Real provider delivery, DNS, HTTPS, and production indexing remain launch checks.

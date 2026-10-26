@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import localFont from 'next/font/local';
+import { Analytics } from '@vercel/analytics/next';
 import { SiteHeader } from '@/components/site-header';
 import { SiteFooter } from '@/components/site-footer';
 import { site } from '@/lib/content';
@@ -34,5 +35,5 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   const structuredData = { '@context': 'https://schema.org', '@type': 'Electrician', name: site.name, url: site.origin, email: site.email, areaServed: site.serviceAreas.map(name => ({ '@type': 'Place', name })), image: `${site.origin}/images/work-1007.jpg`, sameAs: [site.instagram] };
-  return <html lang="en-CA" data-scroll-behavior="smooth" className={`${bodyFont.variable} ${headingFont.variable}`}><body><a className="skip-link" href="#main">Skip to content</a><SiteHeader /><main id="main">{children}</main><SiteFooter /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} /></body></html>;
+  return <html lang="en-CA" data-scroll-behavior="smooth" className={`${bodyFont.variable} ${headingFont.variable}`}><body><a className="skip-link" href="#main">Skip to content</a><SiteHeader /><main id="main">{children}</main><SiteFooter /><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData).replace(/</g, '\\u003c') }} /><Analytics /></body></html>;
 }
