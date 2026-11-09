@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { TrustBadges } from '@/components/trust-badges';
 import { services, site } from '@/lib/content';
 
 export function SiteFooter() {
@@ -17,6 +18,12 @@ export function SiteFooter() {
         <div><span className="eyebrow">Connect</span>{site.emergencyPhones.map((phone, index) => <a className="footer-emergency-link" href={phone.href} key={phone.href}>{index === 0 && '24-hour emergency: '}{phone.display}</a>)}<a className="email-link" href={'mailto:' + site.email}>{emailName}<wbr />@{emailDomain}</a><Link href={site.instagram} target="_blank" rel="noopener noreferrer">Instagram ↗</Link><Link href="/privacy">Privacy</Link></div>
       </div>
     </div>
-    <div className="shell footer-bottom"><div className="footer-legal"><span>© {new Date().getFullYear()} Python Electric</span><span className="footer-licence">TSBC Licence # {site.licenceNumber}</span></div><span>Vancouver, BC · <Link href="/privacy">Privacy policy</Link></span></div>
+    <div className="shell footer-bottom">
+      <div className="footer-credentials">
+        <div className="footer-legal"><span>© {new Date().getFullYear()} Python Electric</span><span className="footer-licence">TSBC Licence # {site.licenceNumber}</span></div>
+        <TrustBadges />
+      </div>
+      <span>Vancouver, BC · <Link href="/privacy">Privacy policy</Link></span>
+    </div>
   </footer>;
 }

@@ -321,8 +321,19 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
 .footer-links a { color: #d7e2e9; font-size: .92rem; }
 .footer-links .footer-emergency-link { color: var(--cyan-light); font-weight: 700; }
 .footer-links a:hover { color: var(--cyan-light); }
-.footer-bottom { display: flex; justify-content: space-between; gap: 16px; padding-block: 19px; border-top: 1px solid #39536a; color: #b8cbd7; font-size: .83rem; }
+.footer-bottom { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px; padding-block: 19px; border-top: 1px solid #39536a; color: #b8cbd7; font-size: .83rem; }
 .footer-bottom a { text-decoration: underline; }
+.footer-credentials { display: flex; align-items: center; gap: 28px; min-width: 0; }
+.footer-trust { flex: none; }
+.trust-badges { display: grid; grid-template-columns: repeat(3, 76px); gap: 10px; padding: 0; margin: 0; list-style: none; }
+.trust-badge { display: flex; flex-direction: column; align-items: center; gap: 5px; min-width: 0; text-align: center; }
+.trust-badge-art { display: flex; justify-content: center; align-items: center; width: 100%; height: 44px; }
+.trust-badge-art svg { display: block; width: auto; max-width: 100%; height: 100%; font-family: var(--body); }
+.trust-badge p { color: white; font-size: .65rem; line-height: 1.35; }
+.trust-badge strong, .trust-badge p span { display: block; }
+.trust-badge strong { font-weight: 650; }
+.trust-badge p span { color: #bacbd6; }
+.trust-badge-registration { color: var(--cyan-light); }
 .footer-legal { display: grid; gap: 4px; }
 
 @media (max-width: 1050px) {
@@ -404,6 +415,11 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .contact-section .quote-form { width: 100%; }
   .contact-aside { padding-top: 0; }
   .footer-top { grid-template-columns: 1fr; gap: 40px; }
+  .footer-credentials { width: 100%; justify-content: space-between; gap: 12px; }
+  .footer-legal { font-size: .72rem; }
+  .trust-badges { grid-template-columns: 28px 44px 28px; gap: 6px; }
+  .trust-badge-art { height: 32px; }
+  .trust-badge p { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 }
 @media (max-width: 520px) {
   .process-grid { display: block; }
@@ -418,8 +434,6 @@ a:focus-visible, button:focus-visible, summary:focus-visible, input:focus-visibl
   .form-submit { align-items: stretch; flex-direction: column; }
   .form-submit .button { width: 100%; }
   .footer-links { grid-template-columns: 1fr 1fr; }
-  .footer-bottom { display: block; }
-  .footer-bottom span { display: block; }
 }
 @media (max-width: 390px) {
   .service-tile-footer { gap: 6px; }

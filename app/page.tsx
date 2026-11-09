@@ -44,7 +44,7 @@ export default function Home() {
       </div>
     </section>
     <section className="home-services section" id="services"><div className="shell">
-      <div className="section-heading"><div><span className="eyebrow">What we do</span><h2>Electrical work, clearly scoped.</h2></div><p>Choose the closest starting point. We can discuss the details of your property and project from there.</p></div>
+      <div className="section-heading"><div><h2>What we do</h2></div><p>Choose the closest starting point. We can discuss the details of your property and project from there.</p></div>
       <div className="home-service-grid">{services.map(service => <ServiceTile service={service} key={service.slug} />)}</div>
     </div></section>
     <section className="home-process section"><div className="shell"><div className="section-heading"><div><span className="eyebrow">Getting started</span><h2>A simple first step.</h2></div><p>Share enough to begin. The finer details can follow in conversation.</p></div><div className="process-grid"><div><span>01</span><h3>Describe the work</h3><p>Tell us what needs repair, installation, or planning.</p></div><div><span>02</span><h3>Set the context</h3><p>Include your area, property type, and any timing that matters.</p></div><div><span>03</span><h3>Continue the conversation</h3><p>Photos, plans, and equipment details can be shared during follow-up.</p></div></div></div></section>
